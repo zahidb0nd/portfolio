@@ -1,236 +1,121 @@
-import { useEffect, useRef, useState } from 'react';
-import { MapPin, GraduationCap, Briefcase, Terminal, Code, Shield, Award } from 'lucide-react';
-import Card3D from '@/components/Card3D';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const About = () => {
+const Philosophy = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const terminalRef = useRef<HTMLDivElement>(null);
-  const [terminalLines, setTerminalLines] = useState<string[]>([]);
-
-  const terminalContent = [
-    { label: 'Location', value: 'Bengaluru, India', icon: MapPin },
-    { label: 'Education', value: 'BCA (Pursuing)', icon: GraduationCap },
-    { label: 'Focus', value: 'AppSec & Pentesting', icon: Briefcase },
-    { label: 'Status', value: 'Open to Internships', icon: Terminal },
-  ];
-
-  const stats = [
-    { value: '2+', label: 'Years Coding', icon: Code },
-    { value: '5+', label: 'Projects', icon: Shield },
-    { value: '1', label: 'Certification', icon: Award },
-  ];
+  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
-      gsap.from(titleRef.current, {
+      // Reveal animation for text lines
+      gsap.from(".philosophy-line", {
         scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
+          trigger: textRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
         },
-        y: 50,
+        y: 60,
         opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
-
-      // Content animation
-      gsap.from(contentRef.current?.children || [], {
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-        x: -50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-      });
-
-      // Terminal animation
-      gsap.from(terminalRef.current, {
-        scrollTrigger: {
-          trigger: terminalRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-        x: 50,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
-
-      // Stats cards animation
-      gsap.from('.stat-card', {
-        scrollTrigger: {
-          trigger: '.stat-card',
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.6,
+        duration: 1.2,
         stagger: 0.1,
-        ease: 'back.out(1.7)',
+        ease: "power3.out"
       });
+
+      // Image or visual reveal
+      gsap.from(".philosophy-visual", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+        },
+        scale: 0.95,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power2.out"
+      });
+
     }, sectionRef);
 
-    // Terminal typing effect
-    const timer = setTimeout(() => {
-      terminalContent.forEach((line, index) => {
-        setTimeout(() => {
-          setTerminalLines((prev) => [...prev, `${line.label}: ${line.value}`]);
-        }, index * 400);
-      });
-    }, 1000);
-
-    return () => {
-      ctx.revert();
-      clearTimeout(timer);
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-screen flex items-center py-24 px-4 relative"
+      className="min-h-screen flex items-center py-32 px-6 bg-onyx relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-matrix-green/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-cyber-cyan/5 rounded-full blur-3xl" />
-      </div>
+      {/* Subtle Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(#52525B 1px, transparent 1px), linear-gradient(90deg, #52525B 1px, transparent 1px)`,
+          backgroundSize: '32px 32px'
+        }}
+      />
 
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div 
-          className="w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 255, 65, 0.5) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 255, 65, 0.5) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
+      <div className="max-w-[90rem] w-full mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        {/* Section Header */}
-        <div ref={titleRef} className="mb-20">
-          <div className="flex items-center justify-center gap-6 mb-6">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-matrix-green/50" />
-            <span className="text-matrix-green/60 font-mono text-sm tracking-widest uppercase">01. About</span>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-matrix-green/50" />
-          </div>
-          <h2 className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center">
-            <span className="text-matrix-green">&lt;</span>About Me
-            <span className="text-matrix-green">/&gt;</span>
-          </h2>
-        </div>
+          {/* Editorial Content */}
+          <div className="lg:col-span-7" ref={textRef}>
+            <span className="block text-indigo-500 font-mono text-sm tracking-widest uppercase mb-8 philosophy-line">
+              01. The Philosophy
+            </span>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Bio Content */}
-          <div ref={contentRef} className="space-y-6">
-            <div className="space-y-5">
-              <p className="text-xl text-foreground/80 leading-relaxed">
-                I am a BCA student at{' '}
-                <span className="text-matrix-green font-semibold">
-                  BMS College of Commerce and Management
-                </span>{' '}
-                with a deep passion for cybersecurity.
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium text-ether leading-[1.1] mb-12">
+              <span className="block philosophy-line">Code is a commodity.</span>
+              <span className="block philosophy-line text-ether-muted">Craft is the differentiator.</span>
+            </h2>
+
+            <div className="space-y-8 max-w-2xl">
+              <p className="text-xl md:text-2xl text-ether/80 font-light leading-relaxed philosophy-line">
+                I partner with ambitious brands to architect digital assets that don't just function—they dominate.
               </p>
-              <p className="text-foreground/70 leading-relaxed">
-                My focus is on vulnerability research, application security, and penetration testing. 
-                I thrive in Linux environments and love automating security tasks with Python.
-              </p>
-              <p className="text-foreground/70 leading-relaxed">
-                Currently seeking internship or entry-level opportunities to leverage my skills 
-                in penetration testing and security analysis while continuing to grow as a cybersecurity professional.
+              <p className="text-lg text-ether-muted leading-relaxed philosophy-line">
+                In a world saturated with templates and noise, I offer silence and precision.
+                My work is defined not by what is added, but by what is removed.
+                Every pixel serves a purpose; every interaction has a weight.
               </p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-4 pt-8">
-              {stats.map((stat) => (
-                <Card3D key={stat.label} intensity={10} className="stat-card">
-                  <div className="bg-gradient-to-br from-matrix-surface/40 to-matrix-surface/10 border border-matrix-green/20 rounded-xl p-5 text-center hover:border-matrix-green/40 transition-colors">
-                    <stat.icon className="w-6 h-6 text-matrix-green mx-auto mb-3" />
-                    <div className="text-3xl font-mono font-bold text-matrix-green mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-foreground/50">{stat.label}</div>
-                  </div>
-                </Card3D>
-              ))}
-            </div>
-          </div>
-
-          {/* Terminal */}
-          <div ref={terminalRef}>
-            <Card3D intensity={8}>
-              <div className="bg-gradient-to-br from-[#0a1a0a] to-[#051005] border border-matrix-green/30 rounded-2xl overflow-hidden shadow-2xl">
-                {/* Terminal Header */}
-                <div className="bg-gradient-to-r from-matrix-green/10 to-transparent border-b border-matrix-green/20 px-5 py-4 flex items-center gap-3">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                  </div>
-                  <span className="flex-1 text-center text-xs text-foreground/40 font-mono">
-                    zahid@portfolio:~$
-                  </span>
+            <div className="mt-16 philosophy-line">
+              <div className="flex gap-12">
+                <div>
+                  <span className="block text-3xl font-display text-indigo-400">03+</span>
+                  <span className="text-sm text-ether-muted uppercase tracking-wider">Years Exp</span>
                 </div>
-
-                {/* Terminal Body */}
-                <div className="p-6 font-mono text-sm min-h-[320px]">
-                  <div className="flex items-center gap-2 mb-6 text-foreground/50">
-                    <span className="text-matrix-green">$</span>
-                    <span className="typing-cursor">cat profile.json</span>
-                  </div>
-
-                  <div className="space-y-4">
-                    {terminalContent.map((item, index) => (
-                      <div
-                        key={item.label}
-                        className={`flex items-center gap-4 p-4 rounded-lg bg-matrix-green/5 border border-matrix-green/10 transition-all duration-500 ${
-                          index < terminalLines.length
-                            ? 'opacity-100 translate-x-0'
-                            : 'opacity-0 translate-x-4'
-                        }`}
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-matrix-green/10 flex items-center justify-center">
-                          <item.icon className="w-5 h-5 text-matrix-green" />
-                        </div>
-                        <div>
-                          <div className="text-matrix-green/70 text-xs mb-1">{item.label}</div>
-                          <div className="text-foreground/90">{item.value}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-2 mt-6 text-foreground/50">
-                    <span className="text-matrix-green">$</span>
-                    <span className="typing-cursor w-2 h-4 bg-matrix-green/50" />
-                  </div>
+                <div>
+                  <span className="block text-3xl font-display text-indigo-400">12+</span>
+                  <span className="text-sm text-ether-muted uppercase tracking-wider">Projects</span>
+                </div>
+                <div>
+                  <span className="block text-3xl font-display text-indigo-400">100%</span>
+                  <span className="text-sm text-ether-muted uppercase tracking-wider">Commitment</span>
                 </div>
               </div>
-            </Card3D>
+            </div>
           </div>
+
+          {/* Minimal Visual / Negative Space Marker */}
+          <div className="lg:col-span-5 h-full min-h-[400px] relative philosophy-visual">
+            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-transparent rounded-sm border border-white/5 backdrop-blur-sm">
+              {/* Abstract "Architectural" lines */}
+              <div className="absolute top-12 left-0 w-full h-px bg-white/10" />
+              <div className="absolute top-0 right-12 w-px h-full bg-white/10" />
+              <div className="absolute bottom-12 left-12 right-0 h-px bg-indigo-500/20" />
+
+              <div className="absolute bottom-8 left-8 text-xs font-mono text-indigo-400/50">
+                FIG 1.0 — SYSTEM ARCHITECTURE
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 };
 
-export default About;
+export default Philosophy;
