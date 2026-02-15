@@ -38,22 +38,29 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom cybersecurity colors
-        matrix: {
-          green: "#00FF41",
-          dark: "#008F11",
-          bg: "#0D0208",
-          surface: "#003B00",
+        // Luxury colors
+        onyx: {
+          DEFAULT: "#0E0E0E",
+          dim: "#050505",
+          highlight: "#1A1A1A"
         },
-        cyber: {
-          cyan: "#00FFFF",
-          gold: "#FFD700",
-          red: "#FF0040",
+        ether: {
+          DEFAULT: "#F5F5F5",
+          muted: "#52525B"
         },
+        indigo: {
+          DEFAULT: "#6366F1",
+          glow: "rgba(99, 102, 241, 0.5)"
+        },
+        glass: {
+          DEFAULT: "rgba(255, 255, 255, 0.03)",
+          border: "rgba(255, 255, 255, 0.08)"
+        }
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
-        sans: ['Inter', 'sans-serif'],
+        mono: ['"Inter"', 'sans-serif'], // Swapped to cleaner look for "mono" spots if needed, or keep for code
+        sans: ['"Inter"', 'sans-serif'],
+        display: ['"Inter"', 'sans-serif'], // Placeholder for Satoshi if we had it
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -151,11 +158,11 @@ module.exports = {
           "80%": { transform: "translate(3px, -3px)" },
         },
         "neon-pulse": {
-          "0%, 100%": { 
-            boxShadow: "0 0 5px #00FF41, 0 0 10px #00FF41, 0 0 20px #00FF41" 
+          "0%, 100%": {
+            boxShadow: "0 0 5px #00FF41, 0 0 10px #00FF41, 0 0 20px #00FF41"
           },
-          "50%": { 
-            boxShadow: "0 0 10px #00FF41, 0 0 20px #00FF41, 0 0 40px #00FF41, 0 0 80px #00FF41" 
+          "50%": {
+            boxShadow: "0 0 10px #00FF41, 0 0 20px #00FF41, 0 0 40px #00FF41, 0 0 80px #00FF41"
           },
         },
       },
