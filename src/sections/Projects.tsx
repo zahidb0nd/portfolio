@@ -1,70 +1,71 @@
-import { useEffect, useRef, useState } from "react";
-import { Github, ArrowRight, Eye, Car } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Card3D from "@/components/Card3D";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface Project {
+  id: string;
   title: string;
-  description: string;
+  sector: string;
+  outcome: string;
   image: string;
-  tags: string[];
-  githubUrl?: string;
-  demoUrl?: string;
-  icon: React.ElementType;
-  color: string;
+  year: string;
 }
 
-const Projects = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+const projects: Project[] = [
+  {
+    id: 'garage-log',
+    title: 'Garage Log',
+    sector: 'Automotive / SaaS',
+    outcome: 'Real-time Maintenance Intelligence',
+    image: '/project-garage.jpg', // Ensure this exists or use a placehold
+    year: '2024'
+  },
+  {
+    id: 'aether-finance',
+    title: 'Aether Finance',
+    sector: 'FinTech / Web3',
+    outcome: '+40% User Retention',
+    image: 'https://images.unsplash.com/photo-1639322537228-ad715eb9a0a2?q=80&w=1000&auto=format&fit=crop', // Placeholder
+    year: '2023'
+  },
+  {
+    id: 'nexus-archi',
+    title: 'Nexus Archi',
+    sector: 'Real Estate',
+    outcome: ' immersive 3D Walkthroughs',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop', // Placeholder
+    year: '2023'
+  }
+];
 
-  const projects: Project[] = [
-    {
-      title: "Garage Log - Digital Glovebox",
-      description:
-        'A modern, full-stack vehicle management application designed as a "Digital Glovebox." Features real-time maintenance scheduling, secure document storage using Supabase, and interactive visualizations comparing EV vs ICE vehicle running costs.',
-      image: "/project-garage.jpg",
-      tags: ["React", "TypeScript", "Tailwind CSS", "Supabase"],
-      githubUrl: "https://github.com/zahidb0nd/garage-log.git",
-      icon: Car,
-      color: "#FF6B6B",
-    },
-  ];
+const Projects = () => {
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    setCursorPosition({ x: clientX, y: clientY });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header animation
-      gsap.from(".projects-header", {
+      gsap.from(".project-row", {
         scrollTrigger: {
-          trigger: ".projects-header",
-          start: "top 80%",
-          toggleActions: "play none none reverse",
+          trigger: sectionRef.current,
+          start: "top 70%",
         },
         y: 50,
         opacity: 0,
         duration: 0.8,
-        ease: "power3.out",
-      });
-
-      // Project cards animation
-      gsap.from(".project-card-wrapper", {
-        scrollTrigger: {
-          trigger: ".project-card-wrapper",
-          start: "top 75%",
-          toggleActions: "play none none reverse",
-        },
-        x: (i) => (i % 2 === 0 ? -80 : 80),
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out",
+        stagger: 0.1,
+        ease: "power3.out"
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
@@ -72,206 +73,78 @@ const Projects = () => {
     <section
       ref={sectionRef}
       id="projects"
-      className="min-h-screen flex items-center py-24 px-4 relative"
+      className="relative min-h-screen py-32 px-6 bg-onyx cursor-none"
+      onMouseMove={handleMouseMove}
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(0, 255, 65, 0.6) 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        {/* Section Header */}
-        <div className="projects-header mb-20">
-          <div className="flex items-center justify-center gap-6 mb-6">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-matrix-green/50" />
-            <span className="text-matrix-green/60 font-mono text-sm tracking-widest uppercase">
-              03. Projects
-            </span>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-matrix-green/50" />
-          </div>
-          <h2 className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center mb-6">
-            <span className="text-matrix-green">//</span> Featured Work
+      <div className="max-w-[90rem] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/10 pb-8">
+          <h2 className="font-display text-5xl md:text-7xl font-bold text-ether">
+            Selected Works<span className="text-indigo-500">.</span>
           </h2>
-          <p className="text-foreground/60 text-center max-w-2xl mx-auto text-lg">
-            Hands-on projects demonstrating my skills in cybersecurity tools
-            development and secure application deployment.
-          </p>
+          <div className="text-right mt-4 md:mt-0">
+            <p className="text-ether-muted font-mono uppercase tracking-widest text-sm">Case Studies 01 — 03</p>
+          </div>
         </div>
 
-        {/* Projects List */}
-        <div className="space-y-16">
-          {projects.map((project, index) => (
+        <div className="flex flex-col">
+          {projects.map((project) => (
             <div
-              key={project.title}
-              className="project-card-wrapper"
-              onMouseEnter={() => setHoveredProject(index)}
+              key={project.id}
+              onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
+              className="project-row group relative border-t border-white/5 py-12 transition-colors hover:bg-white/[0.02]"
             >
-              <Card3D intensity={5}>
-                <div
-                  className="group relative bg-gradient-to-br from-matrix-surface/30 to-matrix-surface/10 border border-matrix-green/20 rounded-3xl overflow-hidden"
-                  style={{
-                    boxShadow:
-                      hoveredProject === index
-                        ? `0 0 60px ${project.color}20`
-                        : "none",
-                  }}
-                >
-                  <div
-                    className={`grid lg:grid-cols-2 gap-0 ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
-                  >
-                    {/* Image */}
-                    <div
-                      className={`relative h-80 lg:h-[450px] overflow-hidden ${index % 2 === 1 ? "lg:order-2" : ""}`}
-                    >
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-matrix-bg via-matrix-bg/60 to-transparent" />
-
-                      {/* Hover Icon */}
-                      <div
-                        className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
-                          hoveredProject === index ? "opacity-100" : "opacity-0"
-                        }`}
-                      >
-                        <div
-                          className="w-20 h-20 rounded-2xl backdrop-blur-md border flex items-center justify-center"
-                          style={{
-                            borderColor: `${project.color}50`,
-                            background: `${project.color}10`,
-                          }}
-                        >
-                          <project.icon
-                            className="w-10 h-10"
-                            style={{ color: project.color }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Corner Accent */}
-                      <div
-                        className="absolute top-6 right-6 w-16 h-16 border-t-2 border-r-2 transition-all duration-500"
-                        style={{
-                          borderColor:
-                            hoveredProject === index
-                              ? project.color
-                              : `${project.color}30`,
-                          opacity: hoveredProject === index ? 1 : 0.5,
-                        }}
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div
-                      className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}
-                    >
-                      <div className="flex items-center gap-4 mb-6">
-                        <div
-                          className="w-12 h-12 rounded-xl flex items-center justify-center border"
-                          style={{
-                            background: `linear-gradient(135deg, ${project.color}20, transparent)`,
-                            borderColor: `${project.color}40`,
-                          }}
-                        >
-                          <project.icon
-                            className="w-6 h-6"
-                            style={{ color: project.color }}
-                          />
-                        </div>
-                        <h3 className="font-mono text-2xl lg:text-3xl font-bold text-white group-hover:text-matrix-green transition-colors">
-                          {project.title}
-                        </h3>
-                      </div>
-
-                      <p className="text-foreground/70 mb-8 leading-relaxed text-lg">
-                        {project.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-4 py-2 bg-matrix-green/10 border border-matrix-green/30 rounded-lg text-sm font-mono text-matrix-green hover:bg-matrix-green hover:text-matrix-bg transition-all duration-300 cursor-default"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex gap-4">
-                        {project.githubUrl && (
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="group/btn border-matrix-green/30 text-matrix-green hover:bg-matrix-green hover:text-matrix-bg transition-all duration-300"
-                            asChild
-                          >
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Github className="w-5 h-5 mr-2 group-hover/btn:rotate-12 transition-transform" />
-                              View Code
-                            </a>
-                          </Button>
-                        )}
-                        <Button
-                          variant="outline"
-                          size="lg"
-                          className="group/btn border-matrix-green/30 text-matrix-green hover:bg-matrix-green hover:text-matrix-bg transition-all duration-300"
-                        >
-                          <Eye className="w-5 h-5 mr-2" />
-                          Live Demo
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Glow Line */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-1 transition-all duration-500"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${project.color}, transparent)`,
-                      opacity: hoveredProject === index ? 1 : 0,
-                    }}
-                  />
+              <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 md:gap-10 relative z-10 px-4">
+                <div className="md:w-5/12">
+                  <h3 className="text-3xl md:text-5xl font-medium text-ether group-hover:text-indigo-400 transition-colors duration-300">
+                    {project.title}
+                  </h3>
                 </div>
-              </Card3D>
+
+                <div className="md:w-3/12">
+                  <span className="text-ether-muted font-mono text-sm uppercase tracking-wider">{project.sector}</span>
+                </div>
+
+                <div className="md:w-3/12">
+                  <span className="text-ether/70 font-light">{project.outcome}</span>
+                </div>
+
+                <div className="md:w-1/12 flex justify-end">
+                  <ArrowUpRight className="text-ether-muted group-hover:text-indigo-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                </div>
+              </div>
             </div>
           ))}
+          <div className="border-t border-white/5" />
         </div>
 
-        {/* View More */}
-        <div className="mt-16 text-center">
-          <Button
-            variant="outline"
-            size="lg"
-            className="group border-matrix-green/30 text-matrix-green hover:bg-matrix-green hover:text-matrix-bg px-10 py-6 text-lg"
-            asChild
-          >
-            <a
-              href="https://github.com/zahidb0nd"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="w-5 h-5 mr-3 group-hover:rotate-12 transition-transform" />
-              View More on GitHub
-              <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
+        {/* Floating Preview Image */}
+        <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden mix-blend-difference hidden md:block">
+          <AnimatePresence mode="wait">
+            {hoveredProject && (
+              <motion.div
+                key="preview"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  x: cursorPosition.x - 200, // Center offset
+                  y: cursorPosition.y - 150
+                }}
+                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                className="fixed top-0 left-0 w-[400px] h-[300px] rounded-lg overflow-hidden"
+              >
+                {projects.find(p => p.id === hoveredProject) && (
+                  <img
+                    src={projects.find(p => p.id === hoveredProject)?.image}
+                    alt="Preview"
+                    className="w-full h-full object-cover grayscale contrast-125"
+                  />
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
