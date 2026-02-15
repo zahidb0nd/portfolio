@@ -10,9 +10,9 @@ const Hero = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
 
-  // Luxury Positioning Copy
-  const headline = "DIGITAL REALITY.";
-  const headlineSub = "UNDEFINED.";
+  // Luxury Positioning Copy - Zahid Bond
+  const headline = "ENGINEERING";
+  const headlineSub = "PERFORMANCE.";
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -100,8 +100,8 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-end">
             <div className="md:col-span-7 lg:col-span-6">
               <p ref={subtitleRef} className="text-xl md:text-2xl lg:text-3xl font-light text-ether-muted leading-relaxed max-w-2xl">
-                Strategic frontend architecture for those who refuse to compete.
-                Engineering digital scarcity through <span className="text-ether">precision</span> and <span className="text-ether">restraint</span>.
+                I build digital systems that <span className="text-ether">scale</span>.
+                Engineering performance for ambitious brands through precision and restraint.
               </p>
             </div>
 
@@ -113,7 +113,7 @@ const Hero = () => {
                     className="group relative px-8 py-8 bg-ether text-onyx hover:bg-white text-lg rounded-none border-none tracking-tight transition-all duration-300"
                   >
                     <span className="relative z-10 flex items-center gap-3 font-semibold">
-                      Start a Dialogue <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      Start a Strategic Conversation <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </Button>
                 </MagneticButton>

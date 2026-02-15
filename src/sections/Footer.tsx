@@ -13,9 +13,9 @@ const Footer = () => {
 
         {/* Left: Copyright */}
         <div className="flex flex-col gap-2">
-          <span className="text-ether font-display text-2xl font-bold tracking-tight">Zahid.</span>
+          <span className="text-ether font-display text-2xl font-bold tracking-tight">Zahid Bond.</span>
           <p className="text-ether-muted text-sm font-mono uppercase tracking-wider">
-            © {currentYear} Digital Architect.
+            © {currentYear} ZahidBond.me
           </p>
         </div>
 
