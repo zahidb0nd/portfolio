@@ -18,10 +18,6 @@ module.exports = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-          foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
-        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
@@ -30,31 +26,25 @@ module.exports = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        // Professional Portfolio Palette
+        brand: {
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
+          300: '#cbd5e1',
+          400: '#94a3b8',
+          500: '#64748b',
+          600: '#475569',
+          700: '#334155',
+          800: '#1e293b',
+          900: '#0f172a',
+          950: '#020617',
         },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        // Luxury colors
-        onyx: {
-          DEFAULT: "#0E0E0E",
-          dim: "#050505",
-          highlight: "#1A1A1A"
-        },
-        ether: {
-          DEFAULT: "#F5F5F5",
-          muted: "#52525B"
-        },
-        indigo: {
-          DEFAULT: "#6366F1",
-          glow: "rgba(99, 102, 241, 0.5)"
-        },
-        glass: {
-          DEFAULT: "rgba(255, 255, 255, 0.03)",
-          border: "rgba(255, 255, 255, 0.08)"
+        sculpture: {
+          foreground: '#1c1c1c',  // Nearly black for high contrast text
+          background: '#ffffff',  // Clean white
+          subtle: '#f5f5f5',      // Very light gray for sections
+          border: '#e5e5e5',
         }
       },
       fontFamily: {

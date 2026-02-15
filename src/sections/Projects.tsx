@@ -1,150 +1,73 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-interface Project {
-  id: string;
-  title: string;
-  sector: string;
-  outcome: string;
-  image: string;
-  year: string;
-}
-
-const projects: Project[] = [
-  {
-    id: 'garage-log',
-    title: 'Garage Log',
-    sector: 'Automotive / SaaS',
-    outcome: 'Real-time Maintenance Intelligence',
-    image: '/project-garage.jpg', // Ensure this exists or use a placehold
-    year: '2024'
-  },
-  {
-    id: 'aether-finance',
-    title: 'Aether Finance',
-    sector: 'FinTech / Web3',
-    outcome: '+40% User Retention',
-    image: 'https://images.unsplash.com/photo-1639322537228-ad715eb9a0a2?q=80&w=1000&auto=format&fit=crop', // Placeholder
-    year: '2023'
-  },
-  {
-    id: 'nexus-archi',
-    title: 'Nexus Archi',
-    sector: 'Real Estate',
-    outcome: ' immersive 3D Walkthroughs',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop', // Placeholder
-    year: '2023'
-  }
-];
-
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e;
-    setCursorPosition({ x: clientX, y: clientY });
-  };
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".project-row", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out"
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
+  const projects = [
+    {
+      name: "Vantage Automotive SaaS",
+      problem: "Automotive dealerships struggled with fragmented inventory management and slow customer response times due to legacy software, leading to a 15% loss in potential sales.",
+      solution: "Architected a unified dashboard using Next.js and TanStack Query to consolidate inventory data in real-time. Implemented optimistic UI updates to ensure zero-latency user interactions.",
+      stack: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS"],
+      performance: "Reduced initial load time by 40% (2.1s to 1.2s). Achieved a Lighthouse Performance score of 98.",
+      challenges: "Handling complex state for vehicle configuration wizards while maintaining URL synchronization for shareability. Solved using a custom hook syncing Zustand state with URL search params."
+    },
+    {
+      name: "Nexus Fintech Platform",
+      problem: "Users experienced significant lag when visualizing high-frequency trading data, causing trust issues and platform abandonment.",
+      solution: "Built a high-performance chart rendering engine using WebGL and web workers to offload heavy computations from the main thread.",
+      stack: ["React", "WebGL", "Web Workers", "Node.js"],
+      performance: "Capable of rendering 50,000+ data points at 60fps without UI jank.",
+      challenges: "Ensuring real-time WebSocket data updates didn't block the main thread during heavy interaction. Implemented data throttling and batched updates to resolve this."
+    }
+  ];
 
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="relative min-h-screen py-32 px-6 bg-onyx cursor-none"
-      onMouseMove={handleMouseMove}
-    >
-      <div className="max-w-[90rem] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/10 pb-8">
-          <h2 className="font-display text-5xl md:text-7xl font-bold text-ether">
-            Selected Works<span className="text-indigo-500">.</span>
-          </h2>
-          <div className="text-right mt-4 md:mt-0">
-            <p className="text-ether-muted font-mono uppercase tracking-widest text-sm">Case Studies 01 — 03</p>
-          </div>
-        </div>
+    <section id="projects" className="section-padding container-px bg-white">
+      <div className="max-w-4xl mx-auto">
+        <span className="block text-sm font-semibold tracking-widest text-brand-500 uppercase mb-12">
+          Selected Engineering Work
+        </span>
 
-        <div className="flex flex-col">
+        <div className="space-y-20">
           {projects.map((project) => (
-            <div
-              key={project.id}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              className="project-row group relative border-t border-white/5 py-12 transition-colors hover:bg-white/[0.02]"
-            >
-              <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 md:gap-10 relative z-10 px-4">
-                <div className="md:w-5/12">
-                  <h3 className="text-3xl md:text-5xl font-medium text-ether group-hover:text-indigo-400 transition-colors duration-300">
-                    {project.title}
-                  </h3>
+            <article key={project.name} className="border-l-2 border-slate-100 pl-8 md:pl-12 py-2">
+              <h3 className="text-3xl font-bold text-slate-900 mb-6">{project.name}</h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div className="md:col-span-8 space-y-6">
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Problem</h4>
+                    <p className="text-slate-600 leading-relaxed">{project.problem}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Solution</h4>
+                    <p className="text-slate-600 leading-relaxed">{project.solution}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Key Engineering Challenge</h4>
+                    <p className="text-slate-600 leading-relaxed">{project.challenges}</p>
+                  </div>
                 </div>
 
-                <div className="md:w-3/12">
-                  <span className="text-ether-muted font-mono text-sm uppercase tracking-wider">{project.sector}</span>
-                </div>
+                <div className="md:col-span-4 space-y-6">
+                  <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Tech Stack</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.map(tech => (
+                        <span key={tech} className="px-3 py-1 bg-white border border-slate-200 text-slate-600 text-sm rounded-full">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-                <div className="md:w-3/12">
-                  <span className="text-ether/70 font-light">{project.outcome}</span>
-                </div>
-
-                <div className="md:w-1/12 flex justify-end">
-                  <ArrowUpRight className="text-ether-muted group-hover:text-indigo-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                  <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Performance</h4>
+                    <p className="text-slate-700 text-sm leading-relaxed font-medium">{project.performance}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
-          <div className="border-t border-white/5" />
-        </div>
-
-        {/* Floating Preview Image */}
-        <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden mix-blend-difference hidden md:block">
-          <AnimatePresence mode="wait">
-            {hoveredProject && (
-              <motion.div
-                key="preview"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  x: cursorPosition.x - 200, // Center offset
-                  y: cursorPosition.y - 150
-                }}
-                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                className="fixed top-0 left-0 w-[400px] h-[300px] rounded-lg overflow-hidden"
-              >
-                {projects.find(p => p.id === hoveredProject) && (
-                  <img
-                    src={projects.find(p => p.id === hoveredProject)?.image}
-                    alt="Preview"
-                    className="w-full h-full object-cover grayscale contrast-125"
-                  />
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
     </section>

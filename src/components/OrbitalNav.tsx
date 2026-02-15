@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Home, User, Briefcase, Code, Mail, Award } from 'lucide-react';
+import { Home, Layers, Hash, Zap, MessageSquare } from 'lucide-react';
 
 const navItems = [
-    { name: 'Home', icon: Home, id: 'hero' },
-    { name: 'About', icon: User, id: 'about' },
-    { name: 'Skills', icon: Code, id: 'skills' },
-    { name: 'Projects', icon: Briefcase, id: 'projects' },
-    { name: 'Certifications', icon: Award, id: 'certifications' },
-    { name: 'Contact', icon: Mail, id: 'contact' },
+    { name: 'Home', icon: Home, id: 'home' },
+    { name: 'The Index', icon: Hash, id: 'projects' },
+    { name: 'Philosophy', icon: Layers, id: 'about' },
+    { name: 'Method', icon: Zap, id: 'skills' },
+    { name: 'Dialogue', icon: MessageSquare, id: 'contact' },
 ];
 
 const OrbitalNav = () => {
-    const [activeTab, setActiveTab] = useState('hero');
+    const [activeTab, setActiveTab] = useState('home');
     const [isHovered, setIsHovered] = useState<string | null>(null);
 
     const scrollToSection = (id: string) => {
@@ -24,8 +23,29 @@ const OrbitalNav = () => {
         }
     };
 
+    // Scroll spy to update active state
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = navItems.map(item => document.getElementById(item.id));
+            const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+            for (const section of sections) {
+                if (section) {
+                    const { offsetTop, offsetHeight } = section;
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveTab(section.id);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-fit px-4">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-fit px-4">
             <motion.div
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -33,12 +53,13 @@ const OrbitalNav = () => {
                     type: "spring",
                     stiffness: 260,
                     damping: 20,
+                    delay: 1 // Delay appearance to let Hero load first
                 }}
                 className={cn(
-                    "flex items-center gap-2 p-2 rounded-full",
-                    "bg-black/20 backdrop-blur-xl border border-white/10",
-                    "shadow-[0_0_15px_rgba(0,0,0,0.1)]",
-                    "hover:bg-black/30 transition-colors duration-300"
+                    "flex items-center gap-1 p-2 rounded-full",
+                    "bg-[#0E0E0E]/80 backdrop-blur-xl border border-white/10",
+                    "shadow-[0_0_20px_rgba(0,0,0,0.3)]",
+                    "hover:border-white/20 transition-colors duration-500"
                 )}
             >
                 {navItems.map((item) => {
@@ -51,7 +72,7 @@ const OrbitalNav = () => {
                             onClick={() => scrollToSection(item.id)}
                             onMouseEnter={() => setIsHovered(item.id)}
                             onMouseLeave={() => setIsHovered(null)}
-                            className="relative px-4 py-2 rounded-full transition-colors duration-300 group"
+                            className="relative px-5 py-3 rounded-full transition-all duration-300 group"
                             aria-label={item.name}
                         >
                             {/* Active / Hover Background Spotlight */}
@@ -71,19 +92,18 @@ const OrbitalNav = () => {
                             )}
 
                             {/* Icon & Label */}
-                            <div className="relative z-10 flex items-center gap-2">
+                            <div className="relative z-10 flex items-center gap-3">
                                 <motion.div
                                     animate={{
                                         scale: isActive ? 1.1 : 1,
-                                        y: isActive ? -2 : 0,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 >
                                     <item.icon
-                                        size={20}
+                                        size={18}
                                         className={cn(
                                             "transition-colors duration-300",
-                                            isActive ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : "text-slate-400 group-hover:text-slate-200"
+                                            isActive ? "text-indigo-400" : "text-white/40 group-hover:text-white/80"
                                         )}
                                     />
                                 </motion.div>
@@ -93,21 +113,12 @@ const OrbitalNav = () => {
                                         initial={{ width: 0, opacity: 0 }}
                                         animate={{ width: "auto", opacity: 1 }}
                                         exit={{ width: 0, opacity: 0 }}
-                                        className="text-sm font-medium text-slate-100 whitespace-nowrap overflow-hidden"
+                                        className="text-sm font-medium text-white/90 whitespace-nowrap overflow-hidden font-display tracking-wide"
                                     >
                                         {item.name}
                                     </motion.span>
                                 )}
                             </div>
-
-                            {/* Active Dot indicator */}
-                            {isActive && (
-                                <motion.div
-                                    layoutId="nav-dot"
-                                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400 blur-[1px]"
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            )}
                         </button>
                     );
                 })}
