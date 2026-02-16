@@ -47,7 +47,7 @@ const Hero = () => {
             className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             asChild
           >
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
               <Github className="w-6 h-6" />
             </a>
           </Button>
@@ -58,7 +58,7 @@ const Hero = () => {
             className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             asChild
           >
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
               <Linkedin className="w-6 h-6" />
             </a>
           </Button>
