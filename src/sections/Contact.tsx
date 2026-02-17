@@ -1,7 +1,32 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Contact = () => {
+  const [copied, setCopied] = useState(false);
+  const email = "zahidhussain16042001@gmail.com";
+
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [copied]);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email)
+      .then(() => {
+        toast.success("Email copied to clipboard!");
+        setCopied(true);
+      })
+      .catch(() => {
+        toast.error("Failed to copy email address.");
+      });
+  };
+
   return (
     <section id="contact" className="section-padding container-px bg-slate-900 text-white">
       <div className="max-w-4xl mx-auto text-center">
@@ -13,14 +38,26 @@ const Contact = () => {
         </p>
 
         <div className="flex flex-col items-center gap-8">
-          <Button
-            className="bg-brand-500 hover:bg-brand-600 text-white px-10 py-8 text-xl rounded-full"
-            asChild
-          >
-            <a href="mailto:zahidhussain16042001@gmail.com">
-              <Mail className="mr-3 w-6 h-6" /> zahidhussain16042001@gmail.com
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <Button
+              className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-8 text-xl rounded-full"
+              asChild
+            >
+              <a href={`mailto:${email}`}>
+                <Mail className="mr-3 w-6 h-6" /> {email}
+              </a>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-14 w-14 rounded-full border-slate-700 bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 hover:border-slate-500 transition-all"
+              onClick={handleCopy}
+              aria-label="Copy email address"
+            >
+              {copied ? <Check className="w-6 h-6 text-green-500" /> : <Copy className="w-6 h-6" />}
+            </Button>
+          </div>
 
           <div className="flex gap-6 mt-4">
             <a
