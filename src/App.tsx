@@ -1,12 +1,14 @@
+import { Suspense, lazy } from 'react';
 import './App.css';
 import { Toaster } from '@/components/ui/sonner';
 
 // Sections
 import Hero from '@/sections/Hero';
-import Philosophy from '@/sections/Philosophy';
-import Skills from '@/sections/Skills';
-import Projects from '@/sections/Projects';
-import Contact from '@/sections/Contact';
+
+const Philosophy = lazy(() => import('@/sections/Philosophy'));
+const Skills = lazy(() => import('@/sections/Skills'));
+const Projects = lazy(() => import('@/sections/Projects'));
+const Contact = lazy(() => import('@/sections/Contact'));
 
 function App() {
   return (
@@ -16,10 +18,12 @@ function App() {
         {/* Main Content */}
         <main className="relative z-10">
           <Hero />
-          <Philosophy />
-          <Skills />
-          <Projects />
-          <Contact />
+          <Suspense fallback={<div className="py-20 text-center text-slate-500">Loading...</div>}>
+            <Philosophy />
+            <Skills />
+            <Projects />
+            <Contact />
+          </Suspense>
         </main>
 
         <footer className="py-8 text-center text-slate-400 text-sm border-t border-slate-100">
