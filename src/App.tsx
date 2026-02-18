@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/sonner';
 
 // Sections
 import Hero from '@/sections/Hero';
+import { SectionSkeleton } from '@/components/SectionSkeleton';
 
 const About = lazy(() => import('@/sections/About'));
 const Skills = lazy(() => import('@/sections/Skills'));
@@ -18,7 +19,7 @@ function App() {
         {/* Main Content */}
         <main className="relative z-10">
           <Hero />
-          <Suspense fallback={<div className="py-20 text-center text-slate-500">Loading...</div>}>
+          <Suspense fallback={<SectionSkeleton />}>
             <About />
             <Skills />
             <Projects />
