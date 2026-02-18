@@ -13,7 +13,7 @@ const Hero = () => {
     <section id="home" className="min-h-[90vh] flex flex-col justify-center section-padding container-px bg-white">
       <div className="max-w-4xl">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6">
-          Zahid Bond
+          Zahid Hussain
         </h1>
         <h2 className="text-2xl md:text-3xl text-slate-500 font-medium mb-8">
           Frontend Engineer

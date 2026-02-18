@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 // Sections
 import Hero from '@/sections/Hero';
 
-const Philosophy = lazy(() => import('@/sections/Philosophy'));
+const About = lazy(() => import('@/sections/About'));
 const Skills = lazy(() => import('@/sections/Skills'));
 const Projects = lazy(() => import('@/sections/Projects'));
 const Contact = lazy(() => import('@/sections/Contact'));
@@ -19,7 +19,7 @@ function App() {
         <main className="relative z-10">
           <Hero />
           <Suspense fallback={<div className="py-20 text-center text-slate-500">Loading...</div>}>
-            <Philosophy />
+            <About />
             <Skills />
             <Projects />
             <Contact />
@@ -27,7 +27,7 @@ function App() {
         </main>
 
         <footer className="py-8 text-center text-slate-400 text-sm border-t border-slate-100">
-          <p>&copy; {new Date().getFullYear()} Zahid Bond. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Zahid Hussain. All rights reserved.</p>
         </footer>
 
         {/* Toast Notifications */}
