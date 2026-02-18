@@ -1,5 +1,6 @@
 import { Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SecureLink } from '@/components/SecureLink';
 
 const Projects = () => {
   const projects = [
@@ -39,14 +40,14 @@ const Projects = () => {
                 <h3 className="text-3xl font-bold text-slate-900">{project.name}</h3>
                 <div className="flex gap-3">
                   <Button variant="outline" size="sm" asChild>
-                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <SecureLink href={project.githubLink} target="_blank" className="flex items-center gap-2">
                       <Github className="w-4 h-4" /> Code
-                    </a>
+                    </SecureLink>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <SecureLink href={project.liveLink} target="_blank" className="flex items-center gap-2">
                       <ExternalLink className="w-4 h-4" /> Demo
-                    </a>
+                    </SecureLink>
                   </Button>
                 </div>
               </div>

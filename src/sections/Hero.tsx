@@ -1,5 +1,6 @@
 import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SecureLink } from '@/components/SecureLink';
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -47,9 +48,9 @@ const Hero = () => {
             className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             asChild
           >
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+            <SecureLink href="https://github.com" target="_blank" aria-label="GitHub Profile">
               <Github className="w-6 h-6" />
-            </a>
+            </SecureLink>
           </Button>
 
           <Button
@@ -58,9 +59,9 @@ const Hero = () => {
             className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             asChild
           >
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+            <SecureLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
               <Linkedin className="w-6 h-6" />
-            </a>
+            </SecureLink>
           </Button>
         </div>
       </div>
