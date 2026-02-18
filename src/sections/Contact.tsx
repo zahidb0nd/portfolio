@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Mail, Linkedin, Github } from 'lucide-react';
+import { SecureLink } from '@/components/SecureLink';
 
 const Contact = () => {
   return (
@@ -17,28 +18,26 @@ const Contact = () => {
             className="bg-brand-500 hover:bg-brand-600 text-white px-10 py-8 text-xl rounded-full"
             asChild
           >
-            <a href="mailto:zahidhussain16042001@gmail.com">
+            <SecureLink href="mailto:zahidhussain16042001@gmail.com">
               <Mail className="mr-3 w-6 h-6" /> zahidhussain16042001@gmail.com
-            </a>
+            </SecureLink>
           </Button>
 
           <div className="flex gap-6 mt-4">
-            <a
+            <SecureLink
               href="https://linkedin.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
               target="_blank"
-              rel="noopener noreferrer"
             >
               <Linkedin className="w-5 h-5" /> LinkedIn
-            </a>
-            <a
+            </SecureLink>
+            <SecureLink
               href="https://github.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
               target="_blank"
-              rel="noopener noreferrer"
             >
               <Github className="w-5 h-5" /> GitHub
-            </a>
+            </SecureLink>
           </div>
         </div>
       </div>
