@@ -4,11 +4,22 @@ import { cn } from "@/lib/utils"
 const isSafeUrl = (url: string) => {
   if (!url) return true
   const lowerUrl = url.trim().toLowerCase()
-  // Block dangerous protocols
-  if (lowerUrl.startsWith("javascript:")) return false
-  if (lowerUrl.startsWith("vbscript:")) return false
-  if (lowerUrl.startsWith("data:")) return false
-  return true
+
+  // Handle protocol-relative URLs (start with //) - usually safe
+  if (lowerUrl.startsWith("//")) return true
+
+  // Regex to extract protocol
+  // Scheme must start with a letter, followed by letters, digits, +, -, .
+  // and ends with a colon.
+  const match = lowerUrl.match(/^([a-z][a-z0-9+\-.]*):/)
+
+  if (match) {
+    const protocol = match[1] + ":"
+    const allowedProtocols = ["http:", "https:", "mailto:", "tel:"]
+    return allowedProtocols.includes(protocol)
+  }
+
+  return true // Relative URL or just a path
 }
 
 const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<"a">>(
