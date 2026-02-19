@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Terminal } from 'lucide-react';
+import { scrollToElement } from '@/lib/utils';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,10 +40,7 @@ const Navigation = () => {
 
   const scrollToSection = (href: string) => {
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToElement(href);
   };
 
   return (
@@ -100,6 +98,9 @@ const Navigation = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 text-matrix-green hover:bg-matrix-green/10 rounded-lg transition-all duration-300"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               <div className="relative w-6 h-6">
                 <Menu 
@@ -120,6 +121,10 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation"
         className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${
           isMenuOpen ? 'visible' : 'invisible'
         }`}
