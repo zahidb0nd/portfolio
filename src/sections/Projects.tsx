@@ -1,3 +1,7 @@
+import { Github, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { SecureLink } from '@/components/SecureLink';
+
 const Projects = () => {
   const projects = [
     {
@@ -6,7 +10,9 @@ const Projects = () => {
       solution: "Architected a unified dashboard using Next.js and TanStack Query to consolidate inventory data in real-time. Implemented optimistic UI updates to ensure zero-latency user interactions.",
       stack: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS"],
       performance: "Reduced initial load time by 40% (2.1s to 1.2s). Achieved a Lighthouse Performance score of 98.",
-      challenges: "Handling complex state for vehicle configuration wizards while maintaining URL synchronization for shareability. Solved using a custom hook syncing Zustand state with URL search params."
+      challenges: "Handling complex state for vehicle configuration wizards while maintaining URL synchronization for shareability. Solved using a custom hook syncing Zustand state with URL search params.",
+      githubLink: "#",
+      liveLink: "#"
     },
     {
       name: "Nexus Fintech Platform",
@@ -14,7 +20,9 @@ const Projects = () => {
       solution: "Built a high-performance chart rendering engine using WebGL and web workers to offload heavy computations from the main thread.",
       stack: ["React", "WebGL", "Web Workers", "Node.js"],
       performance: "Capable of rendering 50,000+ data points at 60fps without UI jank.",
-      challenges: "Ensuring real-time WebSocket data updates didn't block the main thread during heavy interaction. Implemented data throttling and batched updates to resolve this."
+      challenges: "Ensuring real-time WebSocket data updates didn't block the main thread during heavy interaction. Implemented data throttling and batched updates to resolve this.",
+      githubLink: "#",
+      liveLink: "#"
     }
   ];
 
@@ -28,7 +36,21 @@ const Projects = () => {
         <div className="space-y-20">
           {projects.map((project) => (
             <article key={project.name} className="border-l-2 border-slate-100 pl-8 md:pl-12 py-2">
-              <h3 className="text-3xl font-bold text-slate-900 mb-6">{project.name}</h3>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <h3 className="text-3xl font-bold text-slate-900">{project.name}</h3>
+                <div className="flex gap-3">
+                  <Button variant="outline" size="sm" asChild>
+                    <SecureLink href={project.githubLink} target="_blank" className="flex items-center gap-2">
+                      <Github className="w-4 h-4" /> Code
+                    </SecureLink>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <SecureLink href={project.liveLink} target="_blank" className="flex items-center gap-2">
+                      <ExternalLink className="w-4 h-4" /> Demo
+                    </SecureLink>
+                  </Button>
+                </div>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                 <div className="md:col-span-8 space-y-6">

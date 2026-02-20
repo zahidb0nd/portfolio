@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
 import { toast } from 'sonner';
+import { SecureLink } from '@/components/SecureLink';
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -43,9 +44,9 @@ const Contact = () => {
               className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-8 text-xl rounded-full"
               asChild
             >
-              <a href={`mailto:${email}`}>
+              <SecureLink href={`mailto:${email}`}>
                 <Mail className="mr-3 w-6 h-6" /> {email}
-              </a>
+              </SecureLink>
             </Button>
 
             <Button
@@ -60,22 +61,20 @@ const Contact = () => {
           </div>
 
           <div className="flex gap-6 mt-4">
-            <a
+            <SecureLink
               href="https://linkedin.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
               target="_blank"
-              rel="noopener noreferrer"
             >
               <Linkedin className="w-5 h-5" /> LinkedIn
-            </a>
-            <a
+            </SecureLink>
+            <SecureLink
               href="https://github.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
               target="_blank"
-              rel="noopener noreferrer"
             >
               <Github className="w-5 h-5" /> GitHub
-            </a>
+            </SecureLink>
           </div>
         </div>
       </div>
