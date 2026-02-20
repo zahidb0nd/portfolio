@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+<<<<<<< HEAD
+import { Mail, Linkedin, Github } from 'lucide-react';
+import { SecureLink } from '@/components/SecureLink';
+=======
 import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
 import { toast } from 'sonner';
-import { SecureLink } from '@/components/SecureLink';
+>>>>>>> 9df5bd6 (Save local changes before merge)
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -39,14 +43,24 @@ const Contact = () => {
         </p>
 
         <div className="flex flex-col items-center gap-8">
+<<<<<<< HEAD
+          <Button
+            className="bg-brand-500 hover:bg-brand-600 text-white px-10 py-8 text-xl rounded-full"
+            asChild
+          >
+            <SecureLink href="mailto:zahidhussain16042001@gmail.com">
+              <Mail className="mr-3 w-6 h-6" /> zahidhussain16042001@gmail.com
+            </SecureLink>
+          </Button>
+=======
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Button
               className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-8 text-xl rounded-full"
               asChild
             >
-              <SecureLink href={`mailto:${email}`}>
+              <a href={`mailto:${email}`}>
                 <Mail className="mr-3 w-6 h-6" /> {email}
-              </SecureLink>
+              </a>
             </Button>
 
             <Button
@@ -59,6 +73,7 @@ const Contact = () => {
               {copied ? <Check className="w-6 h-6 text-green-500" /> : <Copy className="w-6 h-6" />}
             </Button>
           </div>
+>>>>>>> 9df5bd6 (Save local changes before merge)
 
           <div className="flex gap-6 mt-4">
             <SecureLink
