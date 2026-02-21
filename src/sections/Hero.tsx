@@ -1,6 +1,11 @@
 import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SecureLink } from '@/components/SecureLink';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -42,27 +47,41 @@ const Hero = () => {
             <FileText className="w-5 h-5" /> Resume
           </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            asChild
-          >
-            <SecureLink href="https://github.com" target="_blank" aria-label="GitHub Profile">
-              <Github className="w-6 h-6" />
-            </SecureLink>
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                asChild
+              >
+                <SecureLink href="https://github.com" target="_blank" aria-label="GitHub Profile">
+                  <Github className="w-6 h-6" />
+                </SecureLink>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>GitHub Profile</p>
+            </TooltipContent>
+          </Tooltip>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            asChild
-          >
-            <SecureLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
-              <Linkedin className="w-6 h-6" />
-            </SecureLink>
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                asChild
+              >
+                <SecureLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
+                  <Linkedin className="w-6 h-6" />
+                </SecureLink>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>LinkedIn Profile</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </section>
