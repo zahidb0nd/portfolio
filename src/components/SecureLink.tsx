@@ -12,7 +12,7 @@ const isSafeUrl = (url: string) => {
     const allowedProtocols = ["http:", "https:", "mailto:", "tel:"]
 
     return allowedProtocols.includes(parsed.protocol)
-  } catch (error) {
+  } catch {
     // If URL parsing fails, consider it unsafe
     return false
   }
