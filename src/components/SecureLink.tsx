@@ -1,38 +1,27 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
-
-const isSafeUrl = (url: string) => {
-  if (!url) return true
-  try {
-    // We use a dummy base because standard URL() constructor throws for relative URLs
-    // We use 'http://dummy.com' as base so relative URLs inherit 'http' protocol
-    const parsed = new URL(url, "http://dummy.com")
-
-    // Whitelisted protocols
-    const allowedProtocols = ["http:", "https:", "mailto:", "tel:"]
-
-    return allowedProtocols.includes(parsed.protocol)
-  } catch (error) {
-    // If URL parsing fails, consider it unsafe
-    return false
-  }
-}
+import { isSafeUrl } from "@/lib/security"
 
 const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<"a">>(
   ({ className, href, target, rel, children, ...props }, ref) => {
-    const safeHref = isSafeUrl(href || "") ? href : "#"
+    const { safeHref, finalRel } = React.useMemo(() => {
+      const url = href || ""
+      const safe = isSafeUrl(url) ? url : "#"
 
-    if (import.meta.env.DEV && href && href !== safeHref) {
-      console.warn(`SecureLink: unsafe href blocked: ${href}`)
-    }
+      if (import.meta.env.DEV && href && href !== safe) {
+        console.warn(`SecureLink: unsafe href blocked: ${href}`)
+      }
 
-    const isExternal = target === "_blank"
+      const isExternal = target === "_blank"
+      let calculatedRel = rel || ""
 
-    let finalRel = rel || ""
-    if (isExternal) {
-      if (!finalRel.includes("noopener")) finalRel = (finalRel + " noopener").trim()
-      if (!finalRel.includes("noreferrer")) finalRel = (finalRel + " noreferrer").trim()
-    }
+      if (isExternal) {
+        if (!calculatedRel.includes("noopener")) calculatedRel = (calculatedRel + " noopener").trim()
+        if (!calculatedRel.includes("noreferrer")) calculatedRel = (calculatedRel + " noreferrer").trim()
+      }
+
+      return { safeHref: safe, finalRel: calculatedRel }
+    }, [href, target, rel])
 
     return (
       <a
