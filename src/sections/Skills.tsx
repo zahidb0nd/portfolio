@@ -1,27 +1,28 @@
-const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5", "CSS3"]
-    },
-    {
-      title: "State Management",
-      skills: ["Redux", "Zustand", "Context API", "TanStack Query"]
-    },
-    {
-      title: "Performance",
-      skills: ["Code Splitting", "Lazy Loading", "Lighthouse Optimization", "Image Optimization"]
-    },
-    {
-      title: "Accessibility",
-      skills: ["Semantic HTML", "WCAG Principles", "ARIA Roles", "Keyboard Navigation"]
-    },
-    {
-      title: "Backend Integration",
-      skills: ["REST APIs", "GraphQL", "Authentication (NextAuth/Clerk)", "API Handling"]
-    }
-  ];
+// Static data moved outside component to prevent recreation on every render
+const skillCategories = [
+  {
+    title: "Frontend",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5", "CSS3"]
+  },
+  {
+    title: "State Management",
+    skills: ["Redux", "Zustand", "Context API", "TanStack Query"]
+  },
+  {
+    title: "Performance",
+    skills: ["Code Splitting", "Lazy Loading", "Lighthouse Optimization", "Image Optimization"]
+  },
+  {
+    title: "Accessibility",
+    skills: ["Semantic HTML", "WCAG Principles", "ARIA Roles", "Keyboard Navigation"]
+  },
+  {
+    title: "Backend Integration",
+    skills: ["REST APIs", "GraphQL", "Authentication (NextAuth/Clerk)", "API Handling"]
+  }
+];
 
+const Skills = () => {
   return (
     <section id="skills" className="section-padding container-px bg-slate-50 border-y border-slate-200">
       <div className="max-w-4xl mx-auto">
