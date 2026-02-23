@@ -8,6 +8,10 @@
  */
 export const isSafeUrl = (url: string): boolean => {
   if (!url) return true;
+
+  // Prevent protocol-relative URLs which can be used for open redirects
+  if (url.trim().startsWith("//")) return false;
+
   try {
     // We use a dummy base because standard URL() constructor throws for relative URLs
     // We use 'http://dummy.com' as base so relative URLs inherit 'http' protocol
