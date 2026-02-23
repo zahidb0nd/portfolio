@@ -4,9 +4,10 @@ import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
 import { SecureLink } from '@/components/SecureLink';
 import { toast } from 'sonner';
 
+const email = "zahidhussain16042001@gmail.com";
+
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
-  const email = "zahidhussain16042001@gmail.com";
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email)

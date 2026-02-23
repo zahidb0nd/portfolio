@@ -2,30 +2,30 @@ import { Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SecureLink } from '@/components/SecureLink';
 
-const Projects = () => {
-  const projects = [
-    {
-      name: "Vantage Automotive SaaS",
-      problem: "Automotive dealerships struggled with fragmented inventory management and slow customer response times due to legacy software, leading to a 15% loss in potential sales.",
-      solution: "Architected a unified dashboard using Next.js and TanStack Query to consolidate inventory data in real-time. Implemented optimistic UI updates to ensure zero-latency user interactions.",
-      stack: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS"],
-      performance: "Reduced initial load time by 40% (2.1s to 1.2s). Achieved a Lighthouse Performance score of 98.",
-      challenges: "Handling complex state for vehicle configuration wizards while maintaining URL synchronization for shareability. Solved using a custom hook syncing Zustand state with URL search params.",
-      githubLink: "#",
-      liveLink: "#"
-    },
-    {
-      name: "Nexus Fintech Platform",
-      problem: "Users experienced significant lag when visualizing high-frequency trading data, causing trust issues and platform abandonment.",
-      solution: "Built a high-performance chart rendering engine using WebGL and web workers to offload heavy computations from the main thread.",
-      stack: ["React", "WebGL", "Web Workers", "Node.js"],
-      performance: "Capable of rendering 50,000+ data points at 60fps without UI jank.",
-      challenges: "Ensuring real-time WebSocket data updates didn't block the main thread during heavy interaction. Implemented data throttling and batched updates to resolve this.",
-      githubLink: "#",
-      liveLink: "#"
-    }
-  ];
+const projects = [
+  {
+    name: "Vantage Automotive SaaS",
+    problem: "Automotive dealerships struggled with fragmented inventory management and slow customer response times due to legacy software, leading to a 15% loss in potential sales.",
+    solution: "Architected a unified dashboard using Next.js and TanStack Query to consolidate inventory data in real-time. Implemented optimistic UI updates to ensure zero-latency user interactions.",
+    stack: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS"],
+    performance: "Reduced initial load time by 40% (2.1s to 1.2s). Achieved a Lighthouse Performance score of 98.",
+    challenges: "Handling complex state for vehicle configuration wizards while maintaining URL synchronization for shareability. Solved using a custom hook syncing Zustand state with URL search params.",
+    githubLink: "#",
+    liveLink: "#"
+  },
+  {
+    name: "Nexus Fintech Platform",
+    problem: "Users experienced significant lag when visualizing high-frequency trading data, causing trust issues and platform abandonment.",
+    solution: "Built a high-performance chart rendering engine using WebGL and web workers to offload heavy computations from the main thread.",
+    stack: ["React", "WebGL", "Web Workers", "Node.js"],
+    performance: "Capable of rendering 50,000+ data points at 60fps without UI jank.",
+    challenges: "Ensuring real-time WebSocket data updates didn't block the main thread during heavy interaction. Implemented data throttling and batched updates to resolve this.",
+    githubLink: "#",
+    liveLink: "#"
+  }
+];
 
+const Projects = () => {
   return (
     <section id="projects" className="section-padding container-px bg-white">
       <div className="max-w-4xl mx-auto">
