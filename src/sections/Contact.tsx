@@ -21,7 +21,11 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding container-px bg-slate-900 text-white">
+    <section
+      id="contact"
+      className="section-padding container-px bg-slate-900 text-white outline-none"
+      tabIndex={-1}
+    >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
           Open to Frontend Engineering Roles

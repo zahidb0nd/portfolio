@@ -1,13 +1,11 @@
 import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SecureLink } from '@/components/SecureLink';
+import { scrollToElement } from '@/lib/utils';
 
 const Hero = () => {
   const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToElement('contact');
   };
 
   return (
