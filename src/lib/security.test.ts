@@ -45,4 +45,11 @@ describe('isSafeUrl', () => {
     expect(isSafeUrl('JaVaScRiPt:alert(1)')).toBe(false);
     expect(isSafeUrl('MAILTO:user@example.com')).toBe(true);
   });
+
+  it('should handle obfuscated protocols with control characters', () => {
+    // Newline characters are stripped by URL parser before protocol extraction
+    expect(isSafeUrl('javascript\n:alert(1)')).toBe(false);
+    expect(isSafeUrl('javascript\r:alert(1)')).toBe(false);
+    expect(isSafeUrl('java\tscript:alert(1)')).toBe(false); // Tab might be stripped
+  });
 });
