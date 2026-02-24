@@ -1,31 +1,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
-
-const isSafeUrl = (url: string) => {
-  if (!url) return true
-  const lowerUrl = url.trim().toLowerCase()
-  // Block dangerous protocols
-  if (lowerUrl.startsWith("javascript:")) return false
-  if (lowerUrl.startsWith("vbscript:")) return false
-  if (lowerUrl.startsWith("data:")) return false
-  return true
-}
+import { isSafeUrl } from "@/lib/security"
 
 const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<"a">>(
   ({ className, href, target, rel, children, ...props }, ref) => {
-    const safeHref = isSafeUrl(href || "") ? href : "#"
-
-    if (import.meta.env.DEV && href && href !== safeHref) {
-      console.warn(`SecureLink: unsafe href blocked: ${href}`)
-    }
-
-    const isExternal = target === "_blank"
-
-    let finalRel = rel || ""
-    if (isExternal) {
-      if (!finalRel.includes("noopener")) finalRel = (finalRel + " noopener").trim()
-      if (!finalRel.includes("noreferrer")) finalRel = (finalRel + " noreferrer").trim()
-    }
+    const { safeHref, finalRel } = React.useMemo(() => {
+      const url = href || ""
+      const safe = isSafeUrl(url) ? url : "#"
+      if (import.meta.env.DEV && href && href !== safe) {
+        console.warn(`SecureLink: unsafe href blocked: ${href}`)
+      }
+      const isExternal = target === "_blank"
+      let calculatedRel = rel || ""
+      if (isExternal) {
+        if (!calculatedRel.includes("noopener")) calculatedRel = (calculatedRel + " noopener").trim()
+        if (!calculatedRel.includes("noreferrer")) calculatedRel = (calculatedRel + " noreferrer").trim()
+      }
+      return { safeHref: safe, finalRel: calculatedRel }
+    }, [href, target, rel])
 
     return (
       <a
@@ -41,6 +33,6 @@ const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWitho
     )
   }
 )
-SecureLink.displayName = "SecureLink"
 
+SecureLink.displayName = "SecureLink"
 export { SecureLink }
