@@ -1,71 +1,75 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
-import { SecureLink } from '@/components/SecureLink';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Mail, Linkedin, Github, Copy, Check } from "lucide-react";
+import { SecureLink } from "@/components/SecureLink";
+import { toast } from "sonner";
+
+// Static data moved outside component
+const EMAIL = "zahidhussain16042001@gmail.com";
 
 const Contact = () => {
-  const [copied, setCopied] = useState(false);
-  const email = "zahidhussain16042001@gmail.com";
+  const [isCopied, setIsCopied] = useState(false);
 
-  useEffect(() => {
-    if (copied) {
-      const timer = setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [copied]);
-
-  const handleCopy = () => {
-    if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      toast.error("Clipboard API not supported in this browser.");
-      return;
-    }
-
-    navigator.clipboard.writeText(email)
+  const handleCopyEmail = () => {
+    navigator.clipboard
+      .writeText(EMAIL)
       .then(() => {
-        toast.success("Email copied to clipboard!");
-        setCopied(true);
+        toast.success("Email copied to clipboard");
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
       })
       .catch(() => {
-        toast.error("Failed to copy email address.");
+        toast.error("Failed to copy email");
       });
   };
 
   return (
-    <section id="contact" className="section-padding container-px bg-slate-900 text-white">
+    <section
+      id="contact"
+      className="section-padding container-px bg-slate-900 text-white outline-none"
+      tabIndex={-1}
+    >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
           Open to Frontend Engineering Roles
         </h2>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-12">
-          I'm currently looking to join a high-performance engineering team where I can contribute to scalable products and clean architecture.
+          I'm currently looking to join a high-performance engineering team
+          where I can contribute to scalable products and clean architecture.
         </p>
 
-        <div className="flex flex-col items-center gap-8">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <Button
-              className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-8 text-xl rounded-full"
-              asChild
-            >
-              <SecureLink href={`mailto:${email}`}>
-                <Mail className="mr-3 w-6 h-6" /> {email}
-              </SecureLink>
-            </Button>
+        <div className="flex flex-col items-center gap-10">
+          <div className="flex flex-col items-center gap-4 w-full">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+              <Button
+                className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-6 text-lg rounded-full"
+                asChild
+              >
+                <SecureLink href={`mailto:${EMAIL}`}>
+                  <Mail className="mr-2 w-5 h-5" /> Send Email
+                </SecureLink>
+              </Button>
 
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-14 w-14 rounded-full border-slate-700 bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 hover:border-slate-500 transition-all"
-              onClick={handleCopy}
-              aria-label="Copy email address"
-            >
-              {copied ? <Check className="w-6 h-6 text-green-500" /> : <Copy className="w-6 h-6" />}
-            </Button>
+              <Button
+                variant="outline"
+                className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white hover:border-slate-600 px-8 py-6 text-lg rounded-full transition-all duration-300"
+                onClick={handleCopyEmail}
+              >
+                {isCopied ? (
+                  <>
+                    <Check className="mr-2 w-5 h-5 text-green-400" /> Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="mr-2 w-5 h-5" /> Copy Email
+                  </>
+                )}
+              </Button>
+            </div>
+            <p className="text-slate-500 text-sm font-mono">{EMAIL}</p>
           </div>
 
-          <div className="flex gap-6 mt-4">
+          <div className="flex gap-6">
             <SecureLink
               href="https://linkedin.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
