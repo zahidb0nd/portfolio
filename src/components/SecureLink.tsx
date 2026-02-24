@@ -7,19 +7,15 @@ const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWitho
     const { safeHref, finalRel } = React.useMemo(() => {
       const url = href || ""
       const safe = isSafeUrl(url) ? url : "#"
-
       if (import.meta.env.DEV && href && href !== safe) {
         console.warn(`SecureLink: unsafe href blocked: ${href}`)
       }
-
       const isExternal = target === "_blank"
       let calculatedRel = rel || ""
-
       if (isExternal) {
         if (!calculatedRel.includes("noopener")) calculatedRel = (calculatedRel + " noopener").trim()
         if (!calculatedRel.includes("noreferrer")) calculatedRel = (calculatedRel + " noreferrer").trim()
       }
-
       return { safeHref: safe, finalRel: calculatedRel }
     }, [href, target, rel])
 
@@ -37,6 +33,6 @@ const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWitho
     )
   }
 )
-SecureLink.displayName = "SecureLink"
 
+SecureLink.displayName = "SecureLink"
 export { SecureLink }
