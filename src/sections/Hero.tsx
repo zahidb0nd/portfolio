@@ -20,7 +20,11 @@ const Hero = () => {
       className="min-h-[90vh] flex flex-col justify-center section-padding container-px bg-white"
     >
       <div className="max-w-4xl">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6">
+        <h1
+          id="main-heading"
+          tabIndex={-1}
+          className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 outline-none"
+        >
           Zahid Hussain
         </h1>
         <h2 className="text-2xl md:text-3xl text-slate-500 font-medium mb-8">

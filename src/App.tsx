@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/sonner';
 
 // Sections
 import Hero from '@/sections/Hero';
+import Footer from '@/sections/Footer';
 import { SectionSkeleton } from '@/components/SectionSkeleton';
 
 const About = lazy(() => import('@/sections/About'));
@@ -27,9 +28,7 @@ function App() {
           </Suspense>
         </main>
 
-        <footer className="py-8 text-center text-slate-400 text-sm border-t border-slate-100">
-          <p>&copy; {new Date().getFullYear()} Zahid Hussain. All rights reserved.</p>
-        </footer>
+        <Footer />
 
         {/* Toast Notifications */}
         <Toaster />
