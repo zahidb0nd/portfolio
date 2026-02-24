@@ -23,9 +23,9 @@ describe('isSafeUrl', () => {
     expect(isSafeUrl('./skills')).toBe(true);
   });
 
-  it('should handle protocol-relative URLs as safe (inherits http)', () => {
-    // //example.com is treated as http://example.com by the dummy base logic
-    expect(isSafeUrl('//example.com')).toBe(true);
+  it('should reject protocol-relative URLs (prevent open redirects)', () => {
+    // //example.com should be rejected to enforce explicit protocol usage
+    expect(isSafeUrl('//example.com')).toBe(false);
   });
 
   it('should handle empty or null input', () => {
