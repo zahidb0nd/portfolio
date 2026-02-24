@@ -1,0 +1,11 @@
+import { render } from '@testing-library/react';
+import App from './App';
+import { describe, it, expect } from 'vitest';
+
+describe('App', () => {
+  it('renders without crashing', () => {
+    // This test ensures the app is wrapped in necessary providers (ThemeProvider)
+    // and does not crash on startup.
+    expect(() => render(<App />)).not.toThrow();
+  });
+});

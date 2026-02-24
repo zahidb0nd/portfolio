@@ -23,9 +23,9 @@ describe('isSafeUrl', () => {
     expect(isSafeUrl('./skills')).toBe(true);
   });
 
-  it('should handle protocol-relative URLs as safe (inherits http)', () => {
-    // //example.com is treated as http://example.com by the dummy base logic
-    expect(isSafeUrl('//example.com')).toBe(true);
+  it('should reject protocol-relative URLs (prevent open redirects)', () => {
+    // //example.com should be rejected to enforce explicit protocol usage
+    expect(isSafeUrl('//example.com')).toBe(false);
   });
 
   it('should handle empty or null input', () => {
@@ -44,5 +44,12 @@ describe('isSafeUrl', () => {
   it('should handle mixed case protocols', () => {
     expect(isSafeUrl('JaVaScRiPt:alert(1)')).toBe(false);
     expect(isSafeUrl('MAILTO:user@example.com')).toBe(true);
+  });
+
+  it('should handle obfuscated protocols with control characters', () => {
+    // Newline characters are stripped by URL parser before protocol extraction
+    expect(isSafeUrl('javascript\n:alert(1)')).toBe(false);
+    expect(isSafeUrl('javascript\r:alert(1)')).toBe(false);
+    expect(isSafeUrl('java\tscript:alert(1)')).toBe(false); // Tab might be stripped
   });
 });
