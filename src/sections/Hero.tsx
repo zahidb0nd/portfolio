@@ -1,19 +1,16 @@
-import { ArrowRight, Github, Linkedin, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SecureLink } from "@/components/SecureLink";
-import { scrollToElement } from "@/lib/utils";
+import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { SecureLink } from '@/components/SecureLink';
+import { scrollToElement } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Function definition moved outside to prevent recreation on every render
 const scrollToContact = () => {
-  scrollToElement("contact");
-};
-
-// Function definition moved outside to prevent recreation on every render
-const scrollToContact = () => {
-  const contactSection = document.getElementById("contact");
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: "smooth" });
-  }
+  scrollToElement('contact');
 };
 
 const Hero = () => {
@@ -49,34 +46,42 @@ const Hero = () => {
           >
             <FileText className="w-5 h-5" /> Resume
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            asChild
-          >
-            <SecureLink
-              href="https://github.com"
-              target="_blank"
-              aria-label="GitHub Profile"
-            >
-              <Github className="w-6 h-6" />
-            </SecureLink>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-14 w-14 text-slate-600 hover:text-slate:900 hover:bg-slate-50"
-            asChild
-          >
-            <SecureLink
-              href="https://linkedin.com"
-              target="_blank"
-              aria-label="LinkedIn Profile"
-            >
-              <Linkedin className="w-6 h-6" />
-            </SecureLink>
-          </Button>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                asChild
+              >
+                <SecureLink href="https://github.com" target="_blank" aria-label="GitHub Profile">
+                  <Github className="w-6 h-6" />
+                </SecureLink>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>GitHub Profile</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                asChild
+              >
+                <SecureLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
+                  <Linkedin className="w-6 h-6" />
+                </SecureLink>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>LinkedIn Profile</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </section>
