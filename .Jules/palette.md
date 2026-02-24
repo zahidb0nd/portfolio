@@ -5,3 +5,7 @@
 ## 2024-05-23 - TooltipTrigger and Nested Buttons
 **Learning:** Radix UI `TooltipTrigger` defaults to rendering a `<button>`. When wrapping an existing interactive element (like `Button` or `SecureLink`), always use `asChild` to prevent invalid HTML nesting (button inside button).
 **Action:** Use `asChild` on `TooltipTrigger` when wrapping interactive components.
+
+## 2025-05-27 - Focus Management in Smooth Scroll
+**Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
+**Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
