@@ -1,21 +1,27 @@
-import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { SecureLink } from '@/components/SecureLink';
-<<<<<<< HEAD
-=======
+import { ArrowRight, Github, Linkedin, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { SecureLink } from "@/components/SecureLink";
+import { scrollToElement } from "@/lib/utils";
 
 // Function definition moved outside to prevent recreation on every render
 const scrollToContact = () => {
-  const contactSection = document.getElementById('contact');
+  scrollToElement("contact");
+};
+
+// Function definition moved outside to prevent recreation on every render
+const scrollToContact = () => {
+  const contactSection = document.getElementById("contact");
   if (contactSection) {
-    contactSection.scrollIntoView({ behavior: 'smooth' });
+    contactSection.scrollIntoView({ behavior: "smooth" });
   }
 };
->>>>>>> main
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-[90vh] flex flex-col justify-center section-padding container-px bg-white">
+    <section
+      id="home"
+      className="min-h-[90vh] flex flex-col justify-center section-padding container-px bg-white"
+    >
       <div className="max-w-4xl">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6">
           Zahid Hussain
@@ -27,7 +33,8 @@ const Hero = () => {
           </span>
         </h2>
         <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-2xl mb-12">
-          Building scalable, high-performance web interfaces with clean architecture and measurable performance.
+          Building scalable, high-performance web interfaces with clean
+          architecture and measurable performance.
         </p>
         <div className="flex flex-wrap gap-4">
           <Button
@@ -48,7 +55,11 @@ const Hero = () => {
             className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
             asChild
           >
-            <SecureLink href="https://github.com" target="_blank" aria-label="GitHub Profile">
+            <SecureLink
+              href="https://github.com"
+              target="_blank"
+              aria-label="GitHub Profile"
+            >
               <Github className="w-6 h-6" />
             </SecureLink>
           </Button>
@@ -58,7 +69,11 @@ const Hero = () => {
             className="h-14 w-14 text-slate-600 hover:text-slate:900 hover:bg-slate-50"
             asChild
           >
-            <SecureLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
+            <SecureLink
+              href="https://linkedin.com"
+              target="_blank"
+              aria-label="LinkedIn Profile"
+            >
               <Linkedin className="w-6 h-6" />
             </SecureLink>
           </Button>
