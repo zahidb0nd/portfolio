@@ -23,11 +23,9 @@ const Hero = () => {
             React | TypeScript | Next.js
           </span>
         </h2>
-
         <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-2xl mb-12">
           Building scalable, high-performance web interfaces with clean architecture and measurable performance.
         </p>
-
         <div className="flex flex-wrap gap-4">
           <Button
             onClick={scrollToContact}
@@ -35,14 +33,12 @@ const Hero = () => {
           >
             Contact Me <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
-
           <Button
             variant="outline"
             className="border-slate-200 hover:bg-slate-50 hover:text-slate-900 text-slate-600 px-6 py-6 text-lg rounded-md gap-2"
           >
             <FileText className="w-5 h-5" /> Resume
           </Button>
-
           <Button
             variant="ghost"
             size="icon"
@@ -53,11 +49,10 @@ const Hero = () => {
               <Github className="w-6 h-6" />
             </SecureLink>
           </Button>
-
           <Button
             variant="ghost"
             size="icon"
-            className="h-14 w-14 text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+            className="h-14 w-14 text-slate-600 hover:text-slate:900 hover:bg-slate-50"
             asChild
           >
             <SecureLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
