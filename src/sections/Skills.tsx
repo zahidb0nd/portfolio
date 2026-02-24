@@ -1,4 +1,4 @@
-// Static data moved outside component to prevent recreation on every render
+// Static data moved outside component to prevent reallocation on every render
 const skillCategories = [
   {
     title: "Frontend",
@@ -29,7 +29,6 @@ const Skills = () => {
         <span className="block text-sm font-semibold tracking-widest text-brand-500 uppercase mb-12">
           Technical Expertise
         </span>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {skillCategories.map((category) => (
             <div key={category.title}>
