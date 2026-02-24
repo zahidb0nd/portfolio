@@ -41,7 +41,6 @@ const Projects = () => {
         <span className="block text-sm font-semibold tracking-widest text-brand-500 uppercase mb-12">
           Selected Engineering Work
         </span>
-
         <div className="space-y-20">
           {projects.map((project) => (
             <article
@@ -54,80 +53,46 @@ const Projects = () => {
                 </h3>
                 <div className="flex gap-3">
                   <Button variant="outline" size="sm" asChild>
-                    <SecureLink
-                      href={project.githubLink}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                    >
+                    <SecureLink href={project.githubLink} target="_blank" className="flex items-center gap-2">
                       <Github className="w-4 h-4" /> Code
                     </SecureLink>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <SecureLink
-                      href={project.liveLink}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                    >
+                    <SecureLink href={project.liveLink} target="_blank" className="flex items-center gap-2">
                       <ExternalLink className="w-4 h-4" /> Demo
                     </SecureLink>
                   </Button>
                 </div>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                 <div className="md:col-span-8 space-y-6">
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">
-                      Problem
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed">
-                      {project.problem}
-                    </p>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Problem</h4>
+                    <p className="text-slate-600 leading-relaxed">{project.problem}</p>
                   </div>
-
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">
-                      Solution
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed">
-                      {project.solution}
-                    </p>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Solution</h4>
+                    <p className="text-slate-600 leading-relaxed">{project.solution}</p>
                   </div>
-
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">
-                      Key Engineering Challenge
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed">
-                      {project.challenges}
-                    </p>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Key Engineering Challenge</h4>
+                    <p className="text-slate-600 leading-relaxed">{project.challenges}</p>
                   </div>
                 </div>
-
                 <div className="md:col-span-4 space-y-6">
                   <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
-                      Tech Stack
-                    </h4>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Tech Stack</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 bg-white border border-slate-200 text-slate-600 text-sm rounded-full"
-                        >
+                        <span key={tech} className="px-3 py-1 bg-white border border-slate-200 text-slate-600 text-sm rounded-full">
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
-
                   <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">
-                      Performance
-                    </h4>
-                    <p className="text-slate-700 text-sm leading-relaxed font-medium">
-                      {project.performance}
-                    </p>
+                    <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">Performance</h4>
+                    <p className="text-slate-700 text-sm leading-relaxed font-medium">{project.performance}</p>
                   </div>
                 </div>
               </div>
