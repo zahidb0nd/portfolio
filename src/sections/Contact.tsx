@@ -4,12 +4,14 @@ import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
 import { SecureLink } from '@/components/SecureLink';
 import { toast } from 'sonner';
 
+// Static data moved outside component
+const EMAIL = "zahidhussain16042001@gmail.com";
+
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
-  const email = "zahidhussain16042001@gmail.com";
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email)
+    navigator.clipboard.writeText(EMAIL)
       .then(() => {
         toast.success("Email copied to clipboard");
         setIsCopied(true);
@@ -37,7 +39,7 @@ const Contact = () => {
                 className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-6 text-lg rounded-full"
                 asChild
               >
-                <SecureLink href={`mailto:${email}`}>
+                <SecureLink href={`mailto:${EMAIL}`}>
                   <Mail className="mr-2 w-5 h-5" /> Send Email
                 </SecureLink>
               </Button>
@@ -59,7 +61,7 @@ const Contact = () => {
               </Button>
             </div>
             <p className="text-slate-500 text-sm font-mono">
-              {email}
+              {EMAIL}
             </p>
           </div>
 
