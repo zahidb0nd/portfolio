@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react';
-import { SecureLink } from '@/components/SecureLink';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Mail, Linkedin, Github, Copy, Check } from "lucide-react";
+import { SecureLink } from "@/components/SecureLink";
+import { toast } from "sonner";
 
 // Static data moved outside component
 const EMAIL = "zahidhussain16042001@gmail.com";
@@ -11,7 +11,8 @@ const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(EMAIL)
+    navigator.clipboard
+      .writeText(EMAIL)
       .then(() => {
         toast.success("Email copied to clipboard");
         setIsCopied(true);
@@ -33,7 +34,8 @@ const Contact = () => {
           Open to Frontend Engineering Roles
         </h2>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-12">
-          I'm currently looking to join a high-performance engineering team where I can contribute to scalable products and clean architecture.
+          I'm currently looking to join a high-performance engineering team
+          where I can contribute to scalable products and clean architecture.
         </p>
 
         <div className="flex flex-col items-center gap-10">
@@ -64,9 +66,7 @@ const Contact = () => {
                 )}
               </Button>
             </div>
-            <p className="text-slate-500 text-sm font-mono">
-              {EMAIL}
-            </p>
+            <p className="text-slate-500 text-sm font-mono">{EMAIL}</p>
           </div>
 
           <div className="flex gap-6">

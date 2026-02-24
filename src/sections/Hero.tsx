@@ -1,6 +1,8 @@
 import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SecureLink } from '@/components/SecureLink';
+<<<<<<< HEAD
+=======
 
 // Function definition moved outside to prevent recreation on every render
 const scrollToContact = () => {
@@ -9,6 +11,7 @@ const scrollToContact = () => {
     contactSection.scrollIntoView({ behavior: 'smooth' });
   }
 };
+>>>>>>> main
 
 const Hero = () => {
   return (
