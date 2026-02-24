@@ -2,14 +2,15 @@ import { ArrowRight, Github, Linkedin, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SecureLink } from '@/components/SecureLink';
 
-const Hero = () => {
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+// Function definition moved outside to prevent recreation on every render
+const scrollToContact = () => {
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
+const Hero = () => {
   return (
     <section id="home" className="min-h-[90vh] flex flex-col justify-center section-padding container-px bg-white">
       <div className="max-w-4xl">
