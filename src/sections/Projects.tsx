@@ -53,12 +53,22 @@ const Projects = () => {
                 </h3>
                 <div className="flex gap-3">
                   <Button variant="outline" size="sm" asChild>
-                    <SecureLink href={project.githubLink} target="_blank" className="flex items-center gap-2">
+                    <SecureLink
+                      href={project.githubLink}
+                      target="_blank"
+                      className="flex items-center gap-2"
+                      aria-label={`View source code for ${project.name}`}
+                    >
                       <Github className="w-4 h-4" /> Code
                     </SecureLink>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <SecureLink href={project.liveLink} target="_blank" className="flex items-center gap-2">
+                    <SecureLink
+                      href={project.liveLink}
+                      target="_blank"
+                      className="flex items-center gap-2"
+                      aria-label={`View live demo of ${project.name}`}
+                    >
                       <ExternalLink className="w-4 h-4" /> Demo
                     </SecureLink>
                   </Button>
