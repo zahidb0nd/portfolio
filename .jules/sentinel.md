@@ -7,3 +7,8 @@
 **Vulnerability:** The repository contained security tests (`src/lib/security.test.ts`) but lacked the necessary test runner (`vitest`) to execute them, leading to a false sense of security.
 **Learning:** Security controls that are not automatically verified will eventually degrade. "Broken windows" in test infrastructure obscure actual security gaps.
 **Prevention:** Ensure CI/CD pipelines enforce test execution and that local development environments are initialized with all necessary tools to run security tests.
+
+## 2025-05-22 - Misaligned Security Verification
+**Vulnerability:** A security test explicitly verified behavior (allowing protocol-relative URLs) that contradicted the security policy implemented in code (blocking them).
+**Learning:** Security verification (tests) can be incorrect and provide false signals or fail when policies are correctly enforced. Tests must align with the intended security model.
+**Prevention:** Review tests alongside implementation when defining security policies. Ensure tests cover both "safe" and "unsafe" scenarios accurately.
