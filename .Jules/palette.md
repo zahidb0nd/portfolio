@@ -17,3 +17,7 @@
 ## 2025-05-27 - Focus Management in Smooth Scroll
 **Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
 **Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
+
+## 2025-05-28 - Handling Unavailable Links
+**Learning:** Replacing dead or placeholder links with disabled states can lead to poor accessibility if the element becomes unfocusable (e.g., `disabled` attribute).
+**Action:** Use `aria-disabled="true"` with manual styling (`opacity-50`, `cursor-not-allowed`) to keep the element focusable, and wrap it in a `Tooltip` to explain *why* it is unavailable (e.g., "Private Repository").

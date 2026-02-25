@@ -44,12 +44,23 @@ const Hero = () => {
           >
             Contact Me <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
-          <Button
-            variant="outline"
-            className="border-slate-200 hover:bg-slate-50 hover:text-slate-900 text-slate-600 px-6 py-6 text-lg rounded-md gap-2"
-          >
-            <FileText className="w-5 h-5" /> Resume
-          </Button>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                className="border-slate-200 text-slate-400 cursor-not-allowed px-6 py-6 text-lg rounded-md gap-2 opacity-60"
+                aria-disabled="true"
+                aria-label="Resume (Unavailable)"
+                onClick={(e) => e.preventDefault()}
+              >
+                <FileText className="w-5 h-5" /> Resume
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Resume coming soon</p>
+            </TooltipContent>
+          </Tooltip>
 
           <Tooltip>
             <TooltipTrigger asChild>

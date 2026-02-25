@@ -1,6 +1,11 @@
 import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SecureLink } from "@/components/SecureLink";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Static data moved outside component to prevent reallocation on every render
 const projects = [
@@ -35,6 +40,8 @@ const projects = [
 ];
 
 const Projects = () => {
+  const isLinkAvailable = (link: string) => link && link !== "#";
+
   return (
     <section id="projects" className="section-padding container-px bg-white">
       <div className="max-w-4xl mx-auto">
@@ -52,26 +59,67 @@ const Projects = () => {
                   {project.name}
                 </h3>
                 <div className="flex gap-3">
-                  <Button variant="outline" size="sm" asChild>
-                    <SecureLink
-                      href={project.githubLink}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                      aria-label={`View source code for ${project.name}`}
-                    >
-                      <Github className="w-4 h-4" /> Code
-                    </SecureLink>
-                  </Button>
-                  <Button variant="outline" size="sm" asChild>
-                    <SecureLink
-                      href={project.liveLink}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                      aria-label={`View live demo of ${project.name}`}
-                    >
-                      <ExternalLink className="w-4 h-4" /> Demo
-                    </SecureLink>
-                  </Button>
+                  {isLinkAvailable(project.githubLink) ? (
+                    <Button variant="outline" size="sm" asChild>
+                      <SecureLink
+                        href={project.githubLink}
+                        target="_blank"
+                        className="flex items-center gap-2"
+                        aria-label={`View source code for ${project.name}`}
+                      >
+                        <Github className="w-4 h-4" /> Code
+                      </SecureLink>
+                    </Button>
+                  ) : (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2 opacity-50 cursor-not-allowed"
+                          aria-disabled="true"
+                          aria-label={`Source code for ${project.name} (Private)`}
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          <Github className="w-4 h-4" /> Code
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Source code is private</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+
+                  {isLinkAvailable(project.liveLink) ? (
+                    <Button variant="outline" size="sm" asChild>
+                      <SecureLink
+                        href={project.liveLink}
+                        target="_blank"
+                        className="flex items-center gap-2"
+                        aria-label={`View live demo of ${project.name}`}
+                      >
+                        <ExternalLink className="w-4 h-4" /> Demo
+                      </SecureLink>
+                    </Button>
+                  ) : (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2 opacity-50 cursor-not-allowed"
+                          aria-disabled="true"
+                          aria-label={`Live demo for ${project.name} (Unavailable)`}
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          <ExternalLink className="w-4 h-4" /> Demo
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Live demo unavailable</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
