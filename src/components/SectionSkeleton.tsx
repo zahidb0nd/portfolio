@@ -1,8 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
-export const SectionSkeleton = () => {
+export const SectionSkeleton = ({ className }: { className?: string }) => {
   return (
-    <div className="section-padding container-px w-full bg-white">
+    <div className={cn("section-padding container-px w-full bg-white", className)}>
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="space-y-4">
