@@ -37,9 +37,12 @@ describe('SecureLink', () => {
     expect(link).not.toHaveAttribute('rel');
   });
 
-  it('should handle protocol-relative URLs as external', () => {
+  it('should block protocol-relative URLs', () => {
+    // Protocol-relative URLs are explicitly blocked by isSafeUrl to prevent open redirects
     render(<SecureLink href="//external.com">Protocol Relative</SecureLink>);
     const link = screen.getByRole('link', { name: /protocol relative/i });
-    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(link).toHaveAttribute('href', '#');
+    expect(link).not.toHaveAttribute('rel');
+    expect(link).not.toHaveAttribute('target');
   });
 });
