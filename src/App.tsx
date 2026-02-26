@@ -2,10 +2,13 @@ import { Suspense, lazy } from 'react';
 import './App.css';
 import { Toaster } from '@/components/ui/sonner';
 
+// Components
+import Navigation from '@/components/Navigation';
+import { SectionSkeleton } from '@/components/SectionSkeleton';
+
 // Sections
 import Hero from '@/sections/Hero';
 import Footer from '@/sections/Footer';
-import { SectionSkeleton } from '@/components/SectionSkeleton';
 
 const About = lazy(() => import('@/sections/About'));
 const Skills = lazy(() => import('@/sections/Skills'));
@@ -16,6 +19,8 @@ function App() {
   return (
     <>
       <div className="min-h-screen bg-white text-slate-900 selection:bg-brand-500 selection:text-white">
+
+        <Navigation />
 
         {/* Main Content */}
         <main className="relative z-10">

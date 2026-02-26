@@ -12,7 +12,7 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -34,7 +34,6 @@ const Navigation = () => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Certifications', href: '#certifications' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -48,7 +47,7 @@ const Navigation = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-matrix-bg/90 backdrop-blur-lg border-b border-matrix-green/20 shadow-lg'
+            ? 'bg-white/90 backdrop-blur-lg border-b border-slate-200 shadow-sm'
             : 'bg-transparent'
         }`}
       >
@@ -61,7 +60,7 @@ const Navigation = () => {
                 e.preventDefault();
                 scrollToSection('#home');
               }}
-              className="font-mono text-matrix-green text-lg font-bold hover:glow-text transition-all flex items-center gap-2 group"
+              className="font-mono text-slate-900 text-lg font-bold hover:text-slate-700 transition-all flex items-center gap-2 group"
             >
               <Terminal className="w-5 h-5 group-hover:rotate-12 transition-transform" />
               &lt;ZH/&gt;
@@ -81,13 +80,13 @@ const Navigation = () => {
                     }}
                     className={`relative px-4 py-2 font-mono text-sm transition-all duration-300 rounded-lg ${
                       isActive
-                        ? 'text-matrix-green bg-matrix-green/10'
-                        : 'text-foreground/70 hover:text-matrix-green hover:bg-matrix-green/5'
+                        ? 'text-brand-600 bg-slate-100 font-medium'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                   >
                     {link.name}
                     {isActive && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-matrix-green rounded-full" />
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-brand-600 rounded-full" />
                     )}
                   </a>
                 );
@@ -97,7 +96,7 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-matrix-green hover:bg-matrix-green/10 rounded-lg transition-all duration-300"
+              className="md:hidden p-2 text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-300"
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
@@ -131,7 +130,7 @@ const Navigation = () => {
       >
         {/* Backdrop */}
         <div 
-          className={`absolute inset-0 bg-matrix-bg/95 backdrop-blur-xl transition-opacity duration-500 ${
+          className={`absolute inset-0 bg-white/95 backdrop-blur-xl transition-opacity duration-500 ${
             isMenuOpen ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => setIsMenuOpen(false)}
@@ -156,8 +155,8 @@ const Navigation = () => {
                   }}
                   className={`block px-6 py-4 rounded-xl font-mono text-lg transition-all duration-300 ${
                     isActive
-                      ? 'text-matrix-green bg-matrix-green/10 border border-matrix-green/30'
-                      : 'text-foreground/70 hover:text-matrix-green hover:bg-matrix-green/5'
+                      ? 'text-brand-600 bg-slate-100 border border-slate-200'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                   style={{
                     transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms',
@@ -165,7 +164,6 @@ const Navigation = () => {
                     opacity: isMenuOpen ? 1 : 0,
                   }}
                 >
-                  <span className="text-matrix-green/50 mr-3">0{index + 1}.</span>
                   {link.name}
                 </a>
               );
