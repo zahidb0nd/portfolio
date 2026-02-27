@@ -8,7 +8,10 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+    let animationFrameId: number;
+
+    const updateScrollState = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Update active section based on scroll position
@@ -23,10 +26,23 @@ const Navigation = () => {
           }
         }
       }
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        animationFrameId = window.requestAnimationFrame(updateScrollState);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
 
   const navLinks = [

@@ -11,7 +11,7 @@ const SecureLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWitho
         console.warn(`SecureLink: unsafe href blocked: ${href}`)
       }
       // Consider links external if target is _blank OR if the URL starts with http(s) or //
-      const isExternal = target === "_blank" || /^(https?:|\/\/)/.test(safe)
+      const isExternal = target === "_blank" || /^(https?:|\/\/)/.test(href || "")
       let calculatedRel = rel || ""
       if (isExternal) {
         if (!calculatedRel.includes("noopener")) calculatedRel = (calculatedRel + " noopener").trim()
