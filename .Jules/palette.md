@@ -17,3 +17,6 @@
 ## 2025-05-27 - Focus Management in Smooth Scroll
 **Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
 **Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
+## 2025-05-27 - Disabled Link Tooltips
+**Learning:** Links that point to '#' or act as placeholders for unreleased features can be confusing, especially if they are styled identically to enabled buttons and scroll the user up. Wrapping them as visually disabled, unclickable buttons inside a `Tooltip` (wrapped in a focusable `span`) communicates clearly why the functionality is inactive.
+**Action:** Use a tooltip containing an `aria-disabled="true"` element inside a focusable `<span tabIndex={0} className="cursor-not-allowed">` for unavailable external links or placeholders.
