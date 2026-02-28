@@ -20,10 +20,22 @@ function App() {
         {/* Main Content */}
         <main className="relative z-10">
           <Hero />
+          {/*
+            ⚡ Bolt Performance Optimization: Progressive Rendering
+            What: Wrapped each lazy-loaded section in its own Suspense boundary instead of grouping them.
+            Why: Previously, the entire below-the-fold content waited for ALL chunks to download before rendering anything.
+            Impact: Sections now render independently as soon as their specific chunk is loaded, significantly improving perceived performance and Time to Interactive (TTI) for individual sections on slower network connections.
+          */}
           <Suspense fallback={<SectionSkeleton />}>
             <About />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Contact />
           </Suspense>
         </main>
