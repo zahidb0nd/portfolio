@@ -42,4 +42,10 @@ describe('SecureLink', () => {
     const link = screen.getByRole('link', { name: /protocol relative/i });
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
+
+  it('should handle case-insensitive and whitespace-padded external URLs', () => {
+    render(<SecureLink href=" HTTP://example.com">Padded Uppercase URL</SecureLink>);
+    const link = screen.getByRole('link', { name: /padded uppercase url/i });
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
 });
