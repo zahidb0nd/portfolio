@@ -17,3 +17,6 @@
 ## 2025-05-27 - Focus Management in Smooth Scroll
 **Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
 **Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
+## 2024-11-20 - [Dynamic ARIA labels for transient states]
+**Learning:** Adding dynamic `aria-label`s and `aria-live="polite"` to buttons that change state temporarily (like a "Copy Email" button that turns into "Copied!" for a few seconds) is crucial for screen reader users to receive immediate feedback about their action. Without this, the visual change is missed by those relying on assistive technologies.
+**Action:** When implementing buttons with temporary success states (e.g., "Copied!", "Saved!"), always ensure the button's `aria-label` updates dynamically to reflect the success state, and include `aria-live="polite"` so the screen reader announces the change.

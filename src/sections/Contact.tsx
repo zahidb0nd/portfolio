@@ -8,7 +8,7 @@ import { toast } from "sonner";
 const EMAIL = "zahidhussain16042001@gmail.com";
 
 // Static data moved outside component to prevent recreation on every render
-const email = "zahidhussain16042001@gmail.com";
+
 
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
@@ -48,7 +48,7 @@ const Contact = () => {
                 className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-6 text-lg rounded-full"
                 asChild
               >
-                <SecureLink href={`mailto:${EMAIL}`}>
+                <SecureLink href={`mailto:${EMAIL}`} aria-label="Send Email">
                   <Mail className="mr-2 w-5 h-5" /> Send Email
                 </SecureLink>
               </Button>
@@ -57,6 +57,8 @@ const Contact = () => {
                 variant="outline"
                 className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white hover:border-slate-600 px-8 py-6 text-lg rounded-full transition-all duration-300"
                 onClick={handleCopyEmail}
+                aria-label={isCopied ? "Email copied" : "Copy email address"}
+                aria-live="polite"
               >
                 {isCopied ? (
                   <>
@@ -77,6 +79,7 @@ const Contact = () => {
               href="https://linkedin.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
               target="_blank"
+              aria-label="Visit LinkedIn Profile"
             >
               <Linkedin className="w-5 h-5" /> LinkedIn
             </SecureLink>
@@ -84,6 +87,7 @@ const Contact = () => {
               href="https://github.com"
               className="text-slate-400 hover:text-white transition-colors flex items-center gap-2"
               target="_blank"
+              aria-label="Visit GitHub Profile"
             >
               <Github className="w-5 h-5" /> GitHub
             </SecureLink>
