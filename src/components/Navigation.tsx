@@ -8,24 +8,37 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    // ⚡ Bolt Optimization: Use a ticking variable to throttle scroll events
+    let ticking = false;
 
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
+    const handleScroll = () => {
+      if (!ticking) {
+        // ⚡ Bolt Optimization: Wrap DOM reads (getBoundingClientRect) in requestAnimationFrame
+        // to prevent layout thrashing and synchronize with the browser's refresh rate.
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+
+          // Update active section based on scroll position
+          const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 100 && rect.bottom >= 100) {
+                setActiveSection(section);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // ⚡ Bolt Optimization: Add { passive: true } to tell the browser this listener
+    // won't call preventDefault(), improving scrolling performance.
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
