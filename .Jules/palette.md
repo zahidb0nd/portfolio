@@ -17,3 +17,6 @@
 ## 2025-05-27 - Focus Management in Smooth Scroll
 **Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
 **Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
+## 2025-05-27 - Disabled Buttons and Tooltips
+**Learning:** Native `disabled` buttons swallow pointer events and cannot receive focus, rendering tooltips inaccessible to both mouse and keyboard users. Additionally, Playwright cannot directly `hover()` over `pointer-events-none` elements.
+**Action:** The UX pattern for unavailable actions is to use `disabled aria-disabled="true" className="pointer-events-none"` on the `<Button>` itself, but wrap it in a `<span tabIndex={0} className="cursor-not-allowed">`. The `TooltipTrigger` (with `asChild`) must be applied to this wrapping span. When testing with Playwright, target the wrapping span to perform hover actions.
