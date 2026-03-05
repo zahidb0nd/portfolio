@@ -8,25 +8,42 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    let ticking = false;
+    let rAfId: number | null = null;
 
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
+    const handleScroll = () => {
+      if (!ticking) {
+        // Optimization: Throttle scroll event handling using requestAnimationFrame
+        // to avoid layout thrashing and synchronize DOM calculations with browser refresh rate.
+        rAfId = window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+
+          // Update active section based on scroll position
+          const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 100 && rect.bottom >= 100) {
+                setActiveSection(section);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Optimization: Add { passive: true } to the listener to prevent blocking the main thread during scrolling
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rAfId !== null) {
+        window.cancelAnimationFrame(rAfId);
+      }
+    };
   }, []);
 
   const navLinks = [
