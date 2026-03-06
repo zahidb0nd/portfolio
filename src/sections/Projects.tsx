@@ -1,6 +1,12 @@
 import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SecureLink } from "@/components/SecureLink";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Static data moved outside component to prevent reallocation on every render
 const projects = [
@@ -52,26 +58,72 @@ const Projects = () => {
                   {project.name}
                 </h3>
                 <div className="flex gap-3">
-                  <Button variant="outline" size="sm" asChild>
-                    <SecureLink
-                      href={project.githubLink}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                      aria-label={`View source code for ${project.name}`}
-                    >
-                      <Github className="w-4 h-4" /> Code
-                    </SecureLink>
-                  </Button>
-                  <Button variant="outline" size="sm" asChild>
-                    <SecureLink
-                      href={project.liveLink}
-                      target="_blank"
-                      className="flex items-center gap-2"
-                      aria-label={`View live demo of ${project.name}`}
-                    >
-                      <ExternalLink className="w-4 h-4" /> Demo
-                    </SecureLink>
-                  </Button>
+                  {project.githubLink === "#" ? (
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span tabIndex={0} className="cursor-not-allowed inline-flex">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled
+                              aria-disabled="true"
+                              className="pointer-events-none flex items-center gap-2"
+                            >
+                              <Github className="w-4 h-4" /> Code
+                            </Button>
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Source code is private</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  ) : (
+                    <Button variant="outline" size="sm" asChild>
+                      <SecureLink
+                        href={project.githubLink}
+                        target="_blank"
+                        className="flex items-center gap-2"
+                        aria-label={`View source code for ${project.name}`}
+                      >
+                        <Github className="w-4 h-4" /> Code
+                      </SecureLink>
+                    </Button>
+                  )}
+                  {project.liveLink === "#" ? (
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span tabIndex={0} className="cursor-not-allowed inline-flex">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled
+                              aria-disabled="true"
+                              className="pointer-events-none flex items-center gap-2"
+                            >
+                              <ExternalLink className="w-4 h-4" /> Demo
+                            </Button>
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Demo is unavailable</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  ) : (
+                    <Button variant="outline" size="sm" asChild>
+                      <SecureLink
+                        href={project.liveLink}
+                        target="_blank"
+                        className="flex items-center gap-2"
+                        aria-label={`View live demo of ${project.name}`}
+                      >
+                        <ExternalLink className="w-4 h-4" /> Demo
+                      </SecureLink>
+                    </Button>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
