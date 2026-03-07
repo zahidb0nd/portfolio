@@ -22,8 +22,14 @@ function App() {
           <Hero />
           <Suspense fallback={<SectionSkeleton />}>
             <About />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Contact />
           </Suspense>
         </main>
