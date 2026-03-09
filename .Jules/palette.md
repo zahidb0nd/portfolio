@@ -17,3 +17,6 @@
 ## 2025-05-27 - Focus Management in Smooth Scroll
 **Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
 **Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
+## 2025-05-27 - Tooltips on Disabled Elements
+**Learning:** Adding tooltips directly to disabled buttons fails because disabled elements do not fire mouse events (like `mouseenter` or `mouseleave`) in most browsers.
+**Action:** To provide a tooltip for a disabled button, make the button visually disabled (`pointer-events-none opacity-50 aria-disabled="true" tabIndex={-1}`), wrap it in a focusable `span` (`tabIndex={0} cursor-not-allowed`), and attach the Radix UI `TooltipTrigger` to the `span`.
