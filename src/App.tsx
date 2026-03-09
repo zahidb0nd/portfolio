@@ -20,10 +20,19 @@ function App() {
         {/* Main Content */}
         <main className="relative z-10">
           <Hero />
+          {/* ⚡ Bolt Optimization: Wrap each lazy-loaded section in its own Suspense boundary.
+              This allows independent progressive loading and hydration, preventing slower chunks
+              from blocking the rendering of faster-loading chunks. */}
           <Suspense fallback={<SectionSkeleton />}>
             <About />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
             <Contact />
           </Suspense>
         </main>
