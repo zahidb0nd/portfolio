@@ -2,41 +2,54 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Terminal } from 'lucide-react';
 import { scrollToElement } from '@/lib/utils';
 
+// Static data moved outside component to prevent reallocation on every render
+const NAV_LINKS = [
+  { name: 'Home', href: '#home' },
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Certifications', href: '#certifications' },
+  { name: 'Contact', href: '#contact' },
+];
+
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    let animationFrameId: number | null = null;
 
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
+    const handleScroll = () => {
+      if (animationFrameId !== null) return;
+
+      animationFrameId = requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+
+        // Update active section based on scroll position dynamically derived from NAV_LINKS
+        for (const link of NAV_LINKS) {
+          const sectionId = link.href.replace('#', '');
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100) {
+              setActiveSection(sectionId);
+              break;
+            }
           }
         }
-      }
+        animationFrameId = null;
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
-
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Certifications', href: '#certifications' },
-    { name: 'Contact', href: '#contact' },
-  ];
 
   const scrollToSection = (href: string) => {
     setIsMenuOpen(false);
@@ -69,7 +82,7 @@ const Navigation = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
-              {navLinks.map((link) => {
+              {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.href.replace('#', '');
                 return (
                   <a
@@ -144,7 +157,7 @@ const Navigation = () => {
           }`}
         >
           <div className="space-y-2">
-            {navLinks.map((link, index) => {
+            {NAV_LINKS.map((link, index) => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
                 <a
