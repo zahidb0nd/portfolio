@@ -17,3 +17,7 @@
 ## 2025-05-27 - Focus Management in Smooth Scroll
 **Learning:** When using `scrollIntoView` for smooth scrolling, keyboard focus remains on the trigger button, which can be disorienting. Screen readers may not announce the new context.
 **Action:** Shift focus to the target section (ensure it has `tabIndex="-1"`) after initiating the scroll. Use `focus({ preventScroll: true })` to update focus without fighting the smooth scroll animation. Use the `scrollToElement` helper which combines both behaviors for accessible navigation.
+
+## 2025-05-28 - Unavailable Links UX Pattern
+**Learning:** Using `href="#"` for dead or unavailable links (like private repos) creates a confusing experience and leaves keyboard users wondering if an interaction failed.
+**Action:** Render unavailable links as visually disabled buttons (`pointer-events-none`, `aria-disabled="true"`) wrapped in a focusable `span` (`tabIndex={0}`, `cursor-not-allowed`) inside a `Tooltip` to explicitly communicate the reason (e.g., "Private Repository").
