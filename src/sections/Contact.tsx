@@ -7,9 +7,6 @@ import { toast } from "sonner";
 // Static data moved outside component
 const EMAIL = "zahidhussain16042001@gmail.com";
 
-// Static data moved outside component to prevent recreation on every render
-const email = "zahidhussain16042001@gmail.com";
-
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
 
